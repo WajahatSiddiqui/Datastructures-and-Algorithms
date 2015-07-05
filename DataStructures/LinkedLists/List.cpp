@@ -2,6 +2,7 @@
  * Implement various operations on LinkedList
  */
 #include <iostream>
+#include "List.h"
 using namespace std;
 
 struct Node {
@@ -23,7 +24,7 @@ Node* create() {
 /**
  * Creates a new node given data
  */
-Node* newNode(int data) {
+Node* List::newNode(int data) {
     Node *node = create();
     if (!node) return NULL;
 
@@ -34,28 +35,83 @@ Node* newNode(int data) {
 /**
  * Inserts given data at the end of list
  */
-Node* insert(int data) {
+Node* List::insert(Node *head, int data) {
+    Node *newNode = newNode(data);
+    if (!head) {
+        head = newNode;
+    } else {
+        Node *curr = head, *prev = NULL;
+        while (curr) {
+            prev = curr;
+            curr = curr->next;          
+        }
+        prev->next = newNode;
+    }
+    return head;
 }
 
 /**
  * Inserts given data at a given position
  * in the list
  */
-Node* insert(int data, int position) {
+Node* List::insert(Node *head, int data, int position) {
+    Node *newNode = newNode(data);
+    if (position == 0) {
+        newNode->next = head;
+        head = newNode;
+    } else {
+        Node *curr = head, *prev = NULL;
+        while (curr && position--) {
+            prev = curr;
+            curr = curr->next;
+        }
+        prev->next = newNode;
+        newNode->next = curr;
+    }
+    return head;
 }
 
 
 /**
  * Push given data at the top of the list
  */
-Node* push(int data) {
+Node* List::push(Node *head, int data) {
+   Node *newNode = newNode(data);
+    if (!head) {
+        head = newNode;
+    } else {
+        newNode->next = head;
+        head = newNode;
+    }
+    return head;
 }
 
 /**
  * Deletes a node for the given data
  * in the list
  */
-Node* deleteNode(Node *list, int data) {
+Node* List::deleteNode(Node *head, int data) {
+    if (!head) return NULL;
+    Node *curr = head, *prev = NULL;
+    if (position == 0) {
+        prev = curr;
+        curr = curr->next;
+        head = curr;
+        if (!prev->next)
+            prev->next = NULL;
+        free(prev);
+        prev = NULL;
+    } else {
+        while (curr && position--) {
+            prev = curr;
+            curr = curr->next;
+        }
+        prev->next = curr->next;
+        curr->next = NULL;
+        free(curr);
+        curr = NULL;
+    }
+    return head;
 }
 
 
@@ -69,7 +125,7 @@ Node* deleteNode(Node *list, int data) {
  *
  * list: 1->2->NULL return false
  */
-bool detectLoop(Node *list) {
+bool List::detectLoop(Node *list) {
 }
 
 /**
@@ -79,7 +135,36 @@ bool detectLoop(Node *list) {
  * list2: 4->5->6->NULL
  * returns 1->2->3->4->5->6->NULL
  */
-Node* mergeSorted(Node *list1, Node *list2) {
+Node* List::mergeSorted(Node *list1, Node *list2) {
+    if (!list1 && !list2) return NULL;
+    if (!list1) return list2;
+    if (!list2) return list1;
+    int data = 0;
+    Node *mergeList = NULL, *curr1 = list1, *currB = list2;
+    while (curr1 || currB) {
+        if (curr1 && currB) {
+            if (curr1->data <= currB->data) {
+                data = curr1->data;
+                curr1 = curr1->next;
+            } else {
+                data = currB->data;
+                currB = currB->next;
+            }
+            mergeList = insert(mergeList, data);
+        } else if (curr1 == NULL) {            
+            while (currB) {
+                mergeList = insert(mergeList, currB->data);
+                currB = currB->next;
+            }
+        } else if (currB == NULL) {
+            while (curr1) {
+                mergeList = insert(mergeList, curr1->data);
+                curr1 = curr1->next;
+            }
+                
+        }
+    }
+    return mergeList;
 }
 
 /**
@@ -89,7 +174,7 @@ Node* mergeSorted(Node *list1, Node *list2) {
  * returns a1->b1->a2->b2-> .. -> an->bm->am+1->an->NULL if (n >= m)
  * returns a1->b1->a2->b2-> .. -> an->bn->bn+1->am->NULL if (m >= n)
  */
-Node* mergeList(Node *list1, Node *list2) {
+Node* List::mergeList(Node *list1, Node *list2) {
 }
 
 /**
@@ -102,7 +187,7 @@ Node* mergeList(Node *list1, Node *list2) {
  * 4->5---/
  * return Node at 6
  */
-Node* findIntersectNode(Node *list1, Node *list2) {
+Node* List::findIntersectNode(Node *list1, Node *list2) {
 }
 
 
@@ -110,39 +195,49 @@ Node* findIntersectNode(Node *list1, Node *list2) {
  * Reverse a given list and returns the reversed
  * linked list
  */
-Node* reverse(Node *list) {
+Node* List::reverse(Node *list) {
+    if (!head) return NULL;
+    Node *curr = head, *prev = NULL, *rev = NULL;
+    while (curr) {
+        rev = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = rev;
+    }
+    head = prev;
+    return head;
 }
 
 /**
  * Find the kth node from the begining
  */
-Node* find(Node *list, int k) {
+Node* List::find(Node *list, int k) {
 }
 
 /**
  * Find the kth node from the end
  */
-Node* findEnd(Node *list, int k) {
+Node* List::findEnd(Node *list, int k) {
 }
 
 /**
  * Find n/kth element in a given list
  * where n is the size of the list
  */
-Node* findFractionalNode(Node *list, int k) {
+Node* List::findFractionalNode(Node *list, int k) {
 }
 
 /**
  * find sqrt(nth) node where n is the 
  * number of elements in a given list
  */
-Node* findSqrtNode(Node *list) {
+Node* List::findSqrtNode(Node *list) {
 }
 
 /**
  * Prints the list from head.
  */
-void print(Node *list) {
+void List::print(Node *list) {
     if (!list) return;
     Node *curr = list;
     while (curr) {
@@ -155,16 +250,16 @@ void print(Node *list) {
 /**
  * Prints the list from the end.
  */
-void printFromEnd(Node *list) {
+void List::printFromEnd(Node *list) {
     if (!list) return;
     printFromEnd(list->next);
     cout<<list->data<<" ";
 }
 
 /**
- * Check if given list is even or odd
+ * Check if given list length is even or odd
  */
-bool isListEven(Node *list) {
+bool List::isListEven(Node *list) {
 }
 
 /**
@@ -172,7 +267,7 @@ bool isListEven(Node *list) {
  * list: 1->2->3->4->NULL
  * return 2->1->4->3->NULL
  */
-Node* reverseInPairs(Node *list) {
+Node* List::reverseInPairs(Node *list) {
 }
 
 /**
@@ -180,7 +275,7 @@ Node* reverseInPairs(Node *list) {
  * list: 10->8->0->1->3->NULL
  * returns 0->1->3->8->10->NULL
  */
-Node* sort(Node *list) {
+Node* List::sort(Node *list) {
 }
 
 /**
@@ -190,20 +285,20 @@ Node* sort(Node *list) {
  * list: 1->2->3->1->NULL
  * returns false
  */
-bool isPalidrome(Node *list) {
+bool List::isPalidrome(Node *list) {
 }
 
 /**
  * Finds the middle Node of the given list
  */
-Node* findMiddle(Node *list) {
+Node* List::findMiddle(Node *list) {
 }
 
 
 /**
  * Clone a linked list with a random pointer
  */
-Node* clone(Node *list) {
+Node* List::clone(Node *list) {
 }
 
 /**
@@ -214,6 +309,45 @@ Node* clone(Node *list) {
  * Eg: n = 19, k = 3 => n%k = 4 the node return will be 
  *
  */
-Node* findModularNode(Node *list, int k) {
+Node* List::findModularNode(Node *list, int k) {
 }
 
+/**
+ * Compare two given linked list 
+ * returns 1 if list1 == list2 else 0
+ */
+int List::compare(Node *list1, Node *list2) {
+    if (!list1 || !list2) return 0;
+    Node *curr1 = list1, *curr2 = list2;
+    int count1 = 0, count2 = 0;
+    while (curr1 != NULL || curr2 != NULL) {
+        if (curr1 != NULL && curr2 != NULL 
+            && curr1->data != curr2->data) return 0;
+        if (curr1) {
+            curr1 = curr1->next;
+            count1++;
+        }
+        if (curr2) {
+            curr2 = curr2->next;
+            count2++;
+        }
+    }
+    return (count1 == count2);
+}
+
+int List::getNode(Node *head, int positionFromTail) {
+    if (!head) return 0;
+    Node *curr = head, *prev = head;
+    int len = 0;
+    while (curr) {
+        len++;
+        curr = curr->next;
+    }
+    int pos = len - positionFromTail;
+    curr = head;
+    while (curr && pos--) {
+        prev = curr;
+        curr = curr->next;
+    }
+    return prev->data;
+}
