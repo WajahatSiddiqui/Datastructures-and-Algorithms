@@ -102,6 +102,8 @@ int main() {
     }
     cout<<endl;
 
+    cout<<"Size of queue: "<<size(queue)<<endl;
+    printQueue(queue);
 
     deleteQueue(queue);
 
