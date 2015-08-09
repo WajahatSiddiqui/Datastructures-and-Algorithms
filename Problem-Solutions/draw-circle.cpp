@@ -6,6 +6,7 @@
  * http://geeksquiz.com/draw-circle-without-floating-point-arithmetic/
  */
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 
 void drawCircle(int r) {
@@ -27,7 +28,9 @@ void drawCircle(int r) {
     }
 }
 
-int main() {
-    drawCircle(8);
+int main(int argc, char *argv[]) {
+    if (argc < 2) return 0;
+
+    drawCircle(atoi(argv[1]));
     return 0;
 }
