@@ -2,7 +2,7 @@
  * Find the number which is repeated
  * odd number of times in a given array
  * which has even number of elements already
- * and atleast on number is repeated odd
+ * and only one number is repeated odd
  * number of times
  */
 #include <iostream>
@@ -31,7 +31,7 @@ void findOddNumber(int A[], int size) {
 
 int main() {
 
-    int A[] = {1, 1, 2, 2, 3, 3, 3};
+    int A[] = {2, 3, 5, 4, 5, 2, 4, 3, 5, 2, 4, 4, 2};
     int size = sizeof(A)/sizeof(A[0]);
 
     printArray(A, size);
