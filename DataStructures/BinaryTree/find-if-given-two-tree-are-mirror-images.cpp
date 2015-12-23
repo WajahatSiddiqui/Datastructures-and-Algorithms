@@ -33,7 +33,7 @@ int main()
 	
 	TreeNode *tree2 = newNode(5);
 	tree2->left = newNode(2);
-	tree2->right = newNode(12);
+	tree2->right = newNode(1);
 	
 	if (isMirror(tree1, tree2))
 		cout<<"Tree1 and Tree2 are mirror of each other\n";
