@@ -29,9 +29,11 @@ int main() {
 }
 
 // Algorithm:
-// 1) i = start/prev element, j = next element
-// 2) A[j] < A[j] swap(A[j], A[i])
-// 3) continue 1) untill all elements are sorted.
+// 1) i = next element, j = prev element
+// 2) set key = A[i]
+// 3) find the position in the list to insert the key correctly
+// 4) shift all the elements to next place
+// 5) insert the key in the element found
 void insertion_sort(int A[], int size) {
     int i, j, key;
     for (i = 1; i < size; i++) {
