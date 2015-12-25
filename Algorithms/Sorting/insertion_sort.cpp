@@ -33,12 +33,13 @@ int main() {
 // 2) A[j] < A[j] swap(A[j], A[i])
 // 3) continue 1) untill all elements are sorted.
 void insertion_sort(int A[], int size) {
-    for (int i = 0; i < size; i++) {
-        for (int j = i+1; j < size; j++) {
-            if (A[j] < A[i]) {
-                swap(A[j], A[i]);
-            }
+    int i, j, key;
+    for (i = 1; i < size; i++) {
+        key = A[i];
+        for (j = i - 1; j >= 0 && A[j] > key; j--) {
+            A[j+1] = A[j];
         }
+        A[j+1] = key;
     }
 }
 
