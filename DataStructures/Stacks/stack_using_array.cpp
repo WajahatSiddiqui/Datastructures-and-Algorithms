@@ -42,6 +42,7 @@ int pop(Stack *stack) {
 }
 
 int top(Stack *stack) {
+    if (isEmpty(stack)) return -1;
     return stack->array[stack->top];
 }
 
@@ -55,7 +56,7 @@ void print(Stack *stack) {
  * return remaining size of stack
  */
 size_t size(Stack *stack) {
-    return isEmpty(stack) ? 0 : (stack->size - (stack->top + 1));
+    return stack && ((stack->size -1) - stack->top);
 }
 
 void deleteStack(Stack *stack) {
@@ -81,10 +82,10 @@ int main() {
     push(stack, 9);
     push(stack, 10);
     push(stack, 11);
-
+    cout<<"top: "<<top(stack)<<endl;
     print(stack);
 
-    cout<<"Size of stack: "<<size(stack)<<endl;
+    cout<<"Size of remaining stack: "<<size(stack)<<endl;
 
     int del = 5;
     cout<<"Popping 5 elements\n";
@@ -92,8 +93,9 @@ int main() {
         cout<<pop(stack)<<" ";
     }
     cout<<endl;
+    print(stack);
     cout<<"top: "<<top(stack)<<endl;
-    cout<<"Size of stack: "<<size(stack)<<endl;
+    cout<<"Size of remaining stack: "<<size(stack)<<endl;
 
 
     print(stack);
@@ -107,7 +109,9 @@ int main() {
     cout<<"top: "<<top(stack)<<endl;
 
     cout<<"Size of stack: "<<size(stack)<<endl;
-
+    pop(stack);
+    pop(stack);
+    cout<<"top: "<<top(stack)<<endl;
     deleteStack(stack);
 
     return 0;
