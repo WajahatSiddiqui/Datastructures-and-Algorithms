@@ -1,42 +1,45 @@
 #include "List.h"
-#include <string>
 
-void setup() {
-}
+int main() {
+    Node *head = NULL;
+    List *list = new List();
+    cout<<"Appending in list1: ";
+    head = list->append(head, 1);
+    head = list->append(head, 2);
+    head = list->append(head, 10);
 
+    list->print(head);
 
-void testInsert(int data) {
-    cout<<__FUNCTION__<<endl;
-}
+    cout<<"Appending in list2: ";
+    Node *aHead = NULL;
+    aHead = list->append(aHead, -1);
+    aHead = list->append(aHead, 4);
+    aHead = list->append(aHead, 7);
+    list->print(aHead);
 
-void testInsert(int data, int position) {
-    cout<<__FUNCTION__<<endl;
-}
+    cout<<"mergeSorted: ";
+    Node *merged = list->mergeSorted(head, aHead);
+    list->print(merged);
 
-void testPush(int data) {
-    cout<<__FUNCTION__<<endl;
-}
+    cout<<"reverse: ";
+    Node *rev = list->reverse(merged);
+    list->print(rev);
 
-void testDeleteNode(int data) {
-    cout<<__FUNCTION__<<endl;
-}
+    Node *head1 = NULL;
+    head1 = list->append(head1, 1);
+    head1 = list->append(head1, 2);
+    head1 = list->append(head1, 10);
 
+    cout<<"comparing two equal list: ";
+    cout<<list->compare(head, head1)<<endl;
 
-void runTestCase(string testCase) {
-}
+    cout<<"deleting with position = 2 in reverse list\n";
+    list->deletePosition(rev, 2);
+    list->print(rev);
 
-void runAllTestCases() {
-    setup();
-    testInsert(2);
-    testInsert(3, 2);
-    testPush(3);
-    testDeleteNode(2);
-}
+    cout<<"deleting with key = -1 in reverse list\n";
+    list->deleteKey(rev, -1);
+    list->print(rev);
 
-int main(int argc, char *argv[]) {
-    if (argc > 1 && argv[1] != NULL)
-        runTestCase(argv[1]);
-
-    runAllTestCases();
     return 0;
 }
