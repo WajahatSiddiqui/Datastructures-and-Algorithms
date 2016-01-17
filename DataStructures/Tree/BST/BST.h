@@ -25,7 +25,9 @@ public:
 	bool search(TreeNode* root, int key);
 	int findMin(TreeNode* root);
 	int findMax(TreeNode* root);
+	TreeNode* buildBST(int A[], int size);
 	bool isBinaryTreeBST(TreeNode* root);
+	bool isBinaryTreeBSTInorder(TreeNode *root);
 	TreeNode* LCA(TreeNode* root, int v1, int v2);
 	TreeNode* convertBinaryTreeToBST(TreeNode *root);
 	int ceil(TreeNode* root, int value);

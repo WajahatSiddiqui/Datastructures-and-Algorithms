@@ -1,6 +1,6 @@
 SHELL = /bin/sh
 CC = g++
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 TARGET = BST
 TEST_TARGET = BSTTest
 

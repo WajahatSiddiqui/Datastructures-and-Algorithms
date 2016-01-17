@@ -9,15 +9,52 @@ int main() {
 	root = bst->insert(root, 10);
 	root = bst->insert(root, 0);
 	root = bst->insert(root, 4);
+	root = bst->insert(root, -1);
 
 	cout<<"Printing inorder traversal: ";
 	bst->inOrder(root);
 	cout<<endl;
+	cout<<"Maximum element: "<<bst->findMax(root)<<endl;
+	cout<<"Minimum element: "<<bst->findMin(root)<<endl;
+
+	cout<<"Searching for 4 in the tree\n";
 	if (bst->search(root, 4)) {
 		cout<<"Element 4 found\n";
 	} else {
 		cout<<"Element 4 not present in the BST\n";
 	}
+
+	cout<<"Checking if binary tree is bst\n";
+	TreeNode *binaryTree = new TreeNode(4);
+	binaryTree->left = new TreeNode(2);
+	binaryTree->right = new TreeNode(6);
+	binaryTree->right->right = new TreeNode(100);
+	bst->inOrder(binaryTree);
+	cout<<endl;
+	if (bst->isBinaryTreeBSTInorder(binaryTree)) {
+		cout<<"It is BST\n";
+	} else {
+		cout<<"It is not BST\n";
+	}
+	cout<<"Checking if binary tree is not bst\n";
+	TreeNode *nonBinaryTree = new TreeNode(4);
+	nonBinaryTree->left = new TreeNode(10);
+	nonBinaryTree->right = new TreeNode(-1);
+	bst->inOrder(nonBinaryTree);
+	cout<<endl;
+	if (bst->isBinaryTreeBST(nonBinaryTree)) {
+		cout<<"It is BST\n";
+	} else {
+		cout<<"It is not BST\n";
+	}
+
+	cout<<"Building a BST with the 1 2 3 4 5\n";
+	int A[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	TreeNode *tree = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
+	cout<<"Printing inorder traversal\n";
+	bst->inOrder(tree);
+	cout<<endl;
+
 	delete bst;
 	return 0;
 }
