@@ -203,7 +203,9 @@ Node* List::deletePosition(Node *head, int position) {
  *
  * list: 1->2->NULL return false
  */
-bool List::detectLoop(Node *list) {
+bool List::detectLoop(Node *head) {
+    if (!head) return false;
+    return false;
 }
 
 
@@ -228,3 +230,43 @@ void List::printEnd(Node *head) {
     printEnd(head->next);
     cout<<head->data<<" ";
 }
+
+/**
+ * Rotate the list from the given position
+ * 1->2->3->4->5 after rotation from pos=3
+ * 4->5->1->2->3
+ * T(n) = O(n)
+ */
+ Node* List::rotate(Node *head, int pos) {
+    if (!head) return NULL;
+    if (pos == 0 || pos > size(head)) return head;
+    Node *curr, *prev, *temp = head;
+    curr = head;
+    while(pos-- && curr->next) {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = NULL;
+    head = curr;
+    while (curr->next) {
+        curr = curr->next;
+    }
+    curr->next = temp;
+    return head;
+ }
+
+/**
+ * Returns the number of items in the
+ * list
+ * T(n) = O(n)
+ */
+ int List::size(Node *head) {
+    if (!head) return 0;
+    int i = 0;
+    Node *curr = head;
+    while(curr) {
+        i++;
+        curr = curr->next;
+    }
+    return i;
+ }

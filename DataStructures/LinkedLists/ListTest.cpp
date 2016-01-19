@@ -41,5 +41,16 @@ int main() {
     list->deleteKey(rev, -1);
     list->print(rev);
 
+    Node *rotateHead = NULL;
+    rotateHead = list->append(rotateHead, 1);
+    rotateHead = list->append(rotateHead, 2);
+    rotateHead = list->append(rotateHead, 3);
+    rotateHead = list->append(rotateHead, 4);
+    rotateHead = list->append(rotateHead, 5);
+    cout<<"Rotating below list from pos = 3\n";
+    list->print(rotateHead);
+    Node *rotated = list->rotate(rotateHead, 3);
+    list->print(rotated);
+
     return 0;
 }

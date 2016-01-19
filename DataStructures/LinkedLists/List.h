@@ -25,7 +25,9 @@ class List {
         // Operations
         Node* mergeSorted(Node *head1, Node *head2);
         Node* reverse(Node* head);
+        Node* rotate(Node* head, int pos);
         int compare(Node *head1, Node *head2);
+        int size(Node *head);
         bool detectLoop(Node *head);
 
         // Display
