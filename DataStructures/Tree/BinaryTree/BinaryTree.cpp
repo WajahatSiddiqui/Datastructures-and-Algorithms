@@ -277,3 +277,14 @@ void BinaryTree::postOrder(TreeNode* tree) {
         cout<<tree->data<<" ";
     }
 }
+
+
+TreeNode* BinaryTree::LCA(TreeNode *root, int v1, int v2) {
+    if (!root) return NULL;
+    if (root->data == v1 || root->data == v2) return root;
+    TreeNode *left = LCA(root->left, v1, v2);
+    TreeNode *right = LCA(root->right, v1, v2);
+    if (left && right) return root;
+    else
+        return left ? left : right;
+}

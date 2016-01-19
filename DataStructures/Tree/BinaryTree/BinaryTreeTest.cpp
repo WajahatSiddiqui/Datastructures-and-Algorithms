@@ -57,6 +57,16 @@ int main() {
     	cout<<"Not Equal\n";
     }
 
+    TreeNode *lcaTree = new TreeNode(4);
+    lcaTree->left = new TreeNode(2);
+    lcaTree->right = new TreeNode(7);
+    lcaTree->left->left = new TreeNode(1);
+    lcaTree->left->right = new TreeNode(3);
+    lcaTree->right->left = new TreeNode(6);
+
+    TreeNode *lcaNode = binaryTree->LCA(lcaTree, 1, 6);
+    cout<<"LCA(lcaTree, 1, 6) = "<<lcaNode->data<<endl;
+
     delete binaryTree;
     return 0;	
 }
