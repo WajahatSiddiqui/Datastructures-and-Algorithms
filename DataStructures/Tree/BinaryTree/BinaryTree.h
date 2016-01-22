@@ -53,6 +53,7 @@ public:
 	bool search(TreeNode *root, int data);
 	bool isEqual(TreeNode *tree1, TreeNode *tree2);
 	bool isLeavesAtSameLevel(TreeNode *root);
+	bool isSumTree(TreeNode *root);
 
 	int findMax(TreeNode *root);
 	int findMin(TreeNode *root);

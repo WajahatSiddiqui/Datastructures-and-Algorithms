@@ -78,6 +78,8 @@ int main() {
     binaryTree->levelOrderSpiral(loSpiral);
     cout<<"\nPrinting spiral using 2 stacks\n";
     binaryTree->levelOrderSpiral2Stack(loSpiral);
+
+    cout<<"\nSum of tree: "<<binaryTree->sum(tree)<<endl;
     
     delete binaryTree;
     return 0;	

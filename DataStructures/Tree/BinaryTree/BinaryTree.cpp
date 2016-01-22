@@ -355,3 +355,21 @@ void BinaryTree::levelOrderSpiral2Stack(TreeNode *root) {
         }
     }
 }
+
+bool BinaryTree::isSumTree(TreeNode *root) {
+    if (!root) return true;
+
+}
+
+/**
+ * Finds the sum of all the nodes in the tree
+ * Algorithm
+ * 1) if root does not exists return 0
+ * 2) else return evaluate the sum of lst + get the root data 
+ * + evaluate the sum of right sub tree
+ * T(n) = O(n)
+ */
+int BinaryTree::sum(TreeNode *root) {
+    if (!root) return 0;
+    return sum(root->left) + root->data + sum(root->right);
+}
