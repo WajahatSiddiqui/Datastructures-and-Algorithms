@@ -67,6 +67,18 @@ int main() {
     TreeNode *lcaNode = binaryTree->LCA(lcaTree, 1, 6);
     cout<<"LCA(lcaTree, 1, 6) = "<<lcaNode->data<<endl;
 
+    TreeNode *loSpiral = new TreeNode(10);
+    loSpiral->left = new TreeNode(5);
+    loSpiral->right = new TreeNode(14);
+    loSpiral->left->left = new TreeNode(2);
+    loSpiral->left->right = new TreeNode(7);
+    loSpiral->right->left = new TreeNode(11);
+    loSpiral->right->right = new TreeNode(20);
+    cout<<"Printing spiral using 1 queue and 1 stack\n";
+    binaryTree->levelOrderSpiral(loSpiral);
+    cout<<"\nPrinting spiral using 2 stacks\n";
+    binaryTree->levelOrderSpiral2Stack(loSpiral);
+    
     delete binaryTree;
     return 0;	
 }

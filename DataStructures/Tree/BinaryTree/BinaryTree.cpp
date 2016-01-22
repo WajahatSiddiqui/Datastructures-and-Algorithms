@@ -288,3 +288,70 @@ TreeNode* BinaryTree::LCA(TreeNode *root, int v1, int v2) {
     else
         return left ? left : right;
 }
+
+/**
+ * Printing level order spiral form
+ * Algorithm:
+ * 1) push root node in queue
+ * 2) while queue is not empty do
+ * 3) enqueue node from queue and print
+ * 4) if left child exists 
+ *    i) push left child in stack
+ *    ii)pust the left and right child of this node in queue
+ * 5) if right child exists
+ *    i) push right child in stack
+ *    ii) push the left and right child of this node in queue
+ * 6) while stack is not empty display top node and pop
+ * repeat 2-6 until queue items are not empty
+ * T(n) = O(n^2)
+ * S(n) = O(n)+O(m)
+ */
+void BinaryTree::levelOrderSpiral(TreeNode* root) {
+  if (!root) return;
+  queue<TreeNode*> q;
+  stack<TreeNode*> s;
+  q.push(root);
+  while (!q.empty()) {
+    TreeNode *node = q.front();
+    cout<<node->data<<" ";
+    q.pop();
+    if (node->left) {
+        s.push(node->left);
+        if (node->left->left) q.push(node->left->left);
+           if (node->left->right) q.push(node->left->right);
+    }
+    if (node->right) {
+        s.push(node->right);
+        if (node->right->left) q.push(node->right->left);
+        if (node->right->right) q.push(node->right->right);
+    }
+    while (!s.empty()) {
+      cout<<s.top()->data<<" ";
+      s.pop();
+    }
+  }
+ }
+
+void BinaryTree::levelOrderSpiral2Stack(TreeNode *root) {
+    if (!root) return;
+    stack<TreeNode*> s1, s2;
+    s1.push(root);
+    while (!s1.empty() || !s2.empty()) {
+        while (!s1.empty()) {
+            TreeNode *node = s1.top();
+            cout<<node->data<<" ";
+            s1.pop();
+
+            if (node->left) s2.push(node->left);
+            if (node->right) s2.push(node->right);
+        }
+        while (!s2.empty()) {
+            TreeNode *node = s2.top();
+            cout<<node->data<<" ";
+            s2.pop();
+
+            if(node->right) s1.push(node->right);
+            if (node->left) s1.push(node->left);
+        }
+    }
+}

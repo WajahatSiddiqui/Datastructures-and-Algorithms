@@ -30,6 +30,7 @@ public:
 	void levelOrder(TreeNode *root);
 	void levelOrderQueue(TreeNode *root);
 	void levelOrderSpiral(TreeNode *root);
+	void levelOrderSpiral2Stack(TreeNode *root);
 	void topView(TreeNode *root);
 	void bottomView(TreeNode *root);
 	void leftView(TreeNode *root);
