@@ -125,3 +125,49 @@ TreeNode* buildBSTUtil(int A[], int left, int right) {
 TreeNode* BST::buildBST(int A[], int size) {
 	return buildBSTUtil(A, 0, size-1);
 }
+
+
+TreeNode* buildBSTLLUtil(Node* head, int left, int right) {
+	if (!head) return NULL;
+	if (left > right) return NULL;
+	TreeNode *node = new TreeNode(0);
+	if (left == right) {
+		int pos = left;
+		Node *curr = head;
+		while (pos-- && curr) {
+			curr = curr->next;
+		}
+		node->data = curr->data;
+		return node;
+	} else if (left < right) {
+		int mid = left + (right-left)/2;
+		int pos = mid;
+		Node *curr = head;
+		while (pos-- && curr) {
+			curr = curr->next;
+		}
+		node->data = curr->data;
+		node->left = buildBSTLLUtil(head, left, mid-1);
+		node->right = buildBSTLLUtil(head, mid+1, right);
+	}
+	return node;
+}
+
+int sizeofLL(Node *head) {
+	if (!head) return 0;
+	int count = 0;
+	Node *curr = head;
+	while (curr) {
+		count++;
+		curr = curr->next;
+	}
+	return count;
+}
+
+/**
+ * Builds a BST based on the linked list head position
+ */
+TreeNode* BST::buildBSTLL(Node* head) {
+	int size = sizeofLL(head);
+	return buildBSTLLUtil(head, 0, size-1);
+}

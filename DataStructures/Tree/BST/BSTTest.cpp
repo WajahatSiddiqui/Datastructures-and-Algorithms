@@ -48,12 +48,23 @@ int main() {
 		cout<<"It is not BST\n";
 	}
 
-	cout<<"Building a BST with the 1 2 3 4 5\n";
+	cout<<"Building a BST with the {1 2 3 4 5 ... 10}\n";
 	int A[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	TreeNode *tree = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
 	cout<<"Printing inorder traversal\n";
 	bst->inOrder(tree);
 	cout<<endl;
+
+	cout<<"Building a BST with the 1 2 3 4 5 as LinkedList \n";
+	Node *list = new Node(1);
+	list->next = new Node(2);
+	list->next->next = new Node(3);
+	list->next->next->next = new Node(4);
+	list->next->next->next->next = new Node(5);
+	TreeNode *treeLL = bst->buildBSTLL(list);
+	cout<<"Printing inorder traversal\n";
+	bst->inOrder(treeLL);
+	cout<<endl;	
 
 	delete bst;
 	return 0;

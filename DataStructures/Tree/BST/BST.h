@@ -12,6 +12,15 @@ struct TreeNode {
 	}
 };
 
+struct Node {
+	int data;
+	Node *next;
+	Node() : next(NULL) {}
+	Node(int data_) : data(data_) {
+		next = NULL;
+	}
+};
+
 class BST {
 public:
 	TreeNode* insert(TreeNode* root, int data);
@@ -26,6 +35,7 @@ public:
 	int findMin(TreeNode* root);
 	int findMax(TreeNode* root);
 	TreeNode* buildBST(int A[], int size);
+	TreeNode* buildBSTLL(Node* root);
 	bool isBinaryTreeBST(TreeNode* root);
 	bool isBinaryTreeBSTInorder(TreeNode *root);
 	TreeNode* LCA(TreeNode* root, int v1, int v2);
