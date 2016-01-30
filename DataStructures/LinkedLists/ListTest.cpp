@@ -52,5 +52,17 @@ int main() {
     Node *rotated = list->rotate(rotateHead, 3);
     list->print(rotated);
 
+    cout<<"Removing dupicates in 1->2->2->3->3->3->3->4\n";
+    Node *duplicate = NULL;
+    duplicate = list->append(duplicate, 1);
+    duplicate = list->append(duplicate, 2);
+    duplicate = list->append(duplicate, 2);
+    duplicate = list->append(duplicate, 3);
+    duplicate = list->append(duplicate, 3);
+    duplicate = list->append(duplicate, 3);
+    duplicate = list->append(duplicate, 3);
+    duplicate = list->append(duplicate, 4);
+    list->removeDuplicates(duplicate);
+    list->print(duplicate);
     return 0;
 }

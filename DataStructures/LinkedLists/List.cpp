@@ -270,3 +270,24 @@ void List::printEnd(Node *head) {
     }
     return i;
  }
+
+
+ Node* List::removeDuplicates(Node* head) {
+    if (!head) return NULL;
+    Node *prev = NULL, *curr = head, *temp = NULL;
+
+    while(curr) {
+        prev = curr;
+        curr = curr->next;
+        while (curr && (prev->data == curr->data)) {
+            temp = curr;
+            curr = curr->next;
+            delete temp;
+            temp = NULL;
+            if (prev->next != NULL)
+                prev->next = NULL;
+        }
+        if (prev->next == NULL) prev->next = curr;
+    }
+    return head;
+ }

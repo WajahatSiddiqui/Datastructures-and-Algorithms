@@ -21,6 +21,7 @@ class List {
         // Delete
         Node* deletePosition(Node *head, int position);
         Node* deleteKey(Node *head, int key);
+        Node* removeDuplicates(Node *head);
 
         // Operations
         Node* mergeSorted(Node *head1, Node *head2);
