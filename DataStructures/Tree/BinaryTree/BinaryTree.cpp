@@ -13,7 +13,6 @@ TreeNode* BinaryTree::getTree() {
     tree->left->right = new TreeNode(5);
     tree->right->left =  new TreeNode(-1);
     tree->right->right = new TreeNode(100);
-    tree->left->left->left = new TreeNode(98);
     return tree;
 }
 
@@ -356,9 +355,24 @@ void BinaryTree::levelOrderSpiral2Stack(TreeNode *root) {
     }
 }
 
+/**
+ * Uses sum(TreeNode*) to evalute if a given tree is sum tree
+ * A tree is a sum tree if its root.data = sum(root.left) + sum(root.right)
+ * also, its left and right child are sum tree
+ * An empty tree is also a sum tree where in sum of their children
+ * is 0.
+ * Since, this uses sum which has O(n) time to caculate the sum
+ * therefore, T(n) = for each node its subtree sum is evaluated
+ * T(n) = O(n^2)
+ */
 bool BinaryTree::isSumTree(TreeNode *root) {
-    if (!root) return true;
-
+    if (!root || ((!root->left) && (!root->right))) return true;
+    int lst, rst;
+    lst = sum(root->left);
+    rst = sum(root->right);
+    if (root->data == lst + rst
+     && isSumTree(root->left) && isSumTree(root->right)) return true;
+    return false;
 }
 
 /**
@@ -372,4 +386,38 @@ bool BinaryTree::isSumTree(TreeNode *root) {
 int BinaryTree::sum(TreeNode *root) {
     if (!root) return 0;
     return sum(root->left) + root->data + sum(root->right);
+}
+
+int BinaryTree::toSumTree(TreeNode *root) {
+    if (!root) return 0;
+
+    int old_val = root->data;
+    root->data = toSumTree(root->left) + toSumTree(root->right);
+    return old_val + root->data;
+}
+
+bool isLeaf(TreeNode *node) {
+    return !node && node->left == NULL && node->right == NULL;
+}
+
+/**
+ * Checks if the given tree is sum tree or not 
+ * 1) If a node is at the leaf node then the sum = value of the node
+ * 2) If a node is no leaf node then sum = 2 * value of the node.
+ */
+bool BinaryTree::isSumTreeEfficient(TreeNode *root) {
+    int lst, rst;
+    if (!root || isLeaf(root)) return true;
+
+    if (isSumTreeEfficient(root->left) && isSumTreeEfficient(root->right)) {
+        if (root->left == NULL) lst = 0;
+        else if (isLeaf(root->left)) lst = root->left->data;
+        else lst = 2*root->left->data;
+
+        if (root->right == NULL) rst = 0;
+        else if (isLeaf(root->right)) rst = root->right->data;
+        else rst = 2*root->right->data;
+        return root->data == lst+rst;
+    }
+    return false;
 }

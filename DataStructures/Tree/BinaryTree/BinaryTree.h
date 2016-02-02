@@ -48,12 +48,14 @@ public:
 	TreeNode *mirror(TreeNode *root);
 	TreeNode* LCA(TreeNode* root, int v1, int v2);
 	TreeNode* convertToDoublyLL(TreeNode *root);
+	int toSumTree(TreeNode *root);
 
 	bool isMirror(TreeNode *root1, TreeNode *root2);
 	bool search(TreeNode *root, int data);
 	bool isEqual(TreeNode *tree1, TreeNode *tree2);
 	bool isLeavesAtSameLevel(TreeNode *root);
 	bool isSumTree(TreeNode *root);
+	bool isSumTreeEfficient(TreeNode *root);
 
 	int findMax(TreeNode *root);
 	int findMin(TreeNode *root);
@@ -61,17 +63,9 @@ public:
 	int distance(TreeNode *root, int key1, int key2);
 
 	void deleteTree(TreeNode *root);
-
-
-
-
-
 private:
 	// Utility
 	void levelOrder(TreeNode* tree, int level);
-
-
-
 };
 
 

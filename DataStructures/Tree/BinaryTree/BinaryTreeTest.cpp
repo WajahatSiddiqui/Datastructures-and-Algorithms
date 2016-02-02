@@ -80,6 +80,19 @@ int main() {
     binaryTree->levelOrderSpiral2Stack(loSpiral);
 
     cout<<"\nSum of tree: "<<binaryTree->sum(tree)<<endl;
+
+    /*cout<<"toSumTree(tree)\n";
+    binaryTree->toSumTree(tree);
+    binaryTree->inOrder(tree);*/
+
+    TreeNode *sumTree = new TreeNode(26);
+    sumTree->left = new TreeNode(10);
+    sumTree->right = new TreeNode(3);
+    sumTree->left->left = new TreeNode(6);
+    sumTree->left->right = new TreeNode(4);
+    sumTree->right->right = new TreeNode(3);
+    cout<<"The given tree(sumTree) is: "<<binaryTree->isSumTree(sumTree)<<endl;
+    cout<<"The given tree(sumTree) is: "<<binaryTree->isSumTreeEfficient(sumTree)<<endl;
     
     delete binaryTree;
     return 0;	
