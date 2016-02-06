@@ -5,6 +5,14 @@
 // 2) class contains abstract class if it contains any pure virtual functions
 // 3) If a base class has pure virtual functions
 // in the derived class to implement it
+
+/**
+ * Virtual destructor are useful when 
+ * a derived class object is destroyed
+ * only its destructor is called, if the base
+ * class destructor is made as virtual, then both
+ * derived and base class destructor is called.
+ */
 #include <iostream>
 using namespace std;
 
