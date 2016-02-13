@@ -64,5 +64,33 @@ int main() {
     duplicate = list->append(duplicate, 4);
     list->removeDuplicates(duplicate);
     list->print(duplicate);
+
+    cout<<"Detecting loops in 1->2->3->4->3";
+    Node *loop = NULL;
+    loop = list->append(loop, 1);
+    loop = list->append(loop, 2);
+    loop = list->append(loop, 3);
+    loop = list->append(loop, 4);
+    //loop->next->next->next->next = loop->next->next->next;
+
+    if (list->detectLoop(loop)) cout<<" loop exists\n";
+    else cout<<" loop does not exists\n";
+
+    Node *headA = NULL;
+    headA = list->append(headA, 1);
+    headA = list->append(headA, 2);
+    headA = list->append(headA, 3);
+    headA = list->append(headA, 4);
+    headA = list->append(headA, 5);
+    headA = list->append(headA, 6);
+
+    Node *headB = NULL;
+    headB = list->append(headB, 1);
+    headB->next = headA->next->next->next->next;
+    cout<<"headA: "<<headA->next->next->next->next->data;
+
+    cout<<"Merge point in headA, headB = "<<list->findMergedNode(headA, headB)<<endl;
+
+
     return 0;
 }

@@ -205,6 +205,12 @@ Node* List::deletePosition(Node *head, int position) {
  */
 bool List::detectLoop(Node *head) {
     if (!head) return false;
+    Node *slow = head, *fast = head;
+    while (slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
     return false;
 }
 
@@ -290,4 +296,33 @@ void List::printEnd(Node *head) {
         if (prev->next == NULL) prev->next = curr;
     }
     return head;
+ }
+
+ int List::findMergedNode(Node *headA, Node *headB) {
+    if (!headA || !headB) return -1;
+
+    int lenA = size(headA);
+    int lenB = size(headB);
+    int pos = 0;
+    if (lenA > lenB) {
+        pos = lenA - lenB;
+        Node *tempA = headA;
+        while (tempA && pos--) tempA = tempA->next;
+        headA = tempA;
+    } else if (lenA < lenB) {
+        pos = lenB - lenA;
+        Node *tempB = headB;
+        while (tempB && pos--) tempB = tempB->next;
+        headB = tempB;
+    }
+
+    Node *currA = headA;
+    Node *currB = headB;
+    while (currA && currB) {
+        if (currA == currB) return currA->data;
+        currA = currA->next;
+        currB = currB->next;
+
+    }
+    return -1;
  }
