@@ -3,6 +3,8 @@
  *  Sort a sequence of input using Binary Search Tree
  *  by continuously inserting the elements in BST and
  *  then printing them in inorder traversal
+ *  Best, Avg: O(nlgn)
+ *  Worst: occurs when tree is linked list: O(n^2)
  **/
 
  #include <iostream>
