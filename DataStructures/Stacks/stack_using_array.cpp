@@ -1,119 +1,111 @@
-#include<iostream>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
 
-struct Stack {
-    int top, size;
-    int *array;
+class Stack {
+private:
+    int m_top, m_size;
+    int *m_array;
+public:
+    Stack(int _size) : m_size(_size) {
+        m_top = -1;
+        m_array = new int[m_size];
+        if (!m_array) {
+            cout<<"Error can't initialize stack\n";
+            exit(0);
+        }    
+    }
+
+    ~Stack() {
+        if (isEmpty() && !m_array) return;
+        delete [] m_array;
+    }
+
+    bool isEmpty() {
+        return m_top == -1;
+    }
+
+    bool isFull() {
+        return (m_top + 1 == m_size);
+    }
+
+    void push(int data) {
+        if (isFull()) return; // overflow
+        m_array[++m_top] = data;
+    }
+
+    int pop() {
+        if (isEmpty()) return -1; // underflow
+
+        int data = m_array[m_top];
+        m_top--;
+        return data;
+    }
+
+    int top() {
+        if (isEmpty()) return -1;
+        return m_array[m_top];
+    }
+
+    void print() {
+        for (int i = 0; i <= m_top; i++)
+            cout<<m_array[i]<<" ";
+        cout<<endl;
+    }
+    /**
+     * return remaining m_size of stack
+     */
+    size_t size() {
+        return m_top == -1 ? 0 : (m_size -1 - m_top);
+    }
 };
-
-Stack* createStack(int size) {
-    Stack *stack = new Stack();
-    if (!stack) return NULL;
-
-    stack->top = -1;
-    stack->size = size;
-
-    stack->array = new int[stack->size];
-    if (!stack->array) return NULL;
-
-    return stack;
-}
-
-bool isEmpty(Stack *stack) {
-    return stack && stack->top == -1;
-}
-
-bool isFull(Stack *stack) {
-    return stack && (stack->top + 1 == stack->size);
-}
-
-void push(Stack *stack, int data) {
-    if (isFull(stack)) return;
-
-    stack->array[++stack->top] = data;
-}
-
-int pop(Stack *stack) {
-    if (isEmpty(stack)) return -1;
-
-    int data = stack->array[stack->top];
-    stack->top--;
-    return data;
-}
-
-int top(Stack *stack) {
-    if (isEmpty(stack)) return -1;
-    return stack->array[stack->top];
-}
-
-void print(Stack *stack) {
-    for (int i = 0; i <= stack->top; i++)
-        cout<<stack->array[i]<<" ";
-    cout<<endl;
-}
-
-/**
- * return remaining size of stack
- */
-size_t size(Stack *stack) {
-    return stack && ((stack->size -1) - stack->top);
-}
-
-void deleteStack(Stack *stack) {
-    if (isEmpty(stack) && !stack->array) return;
-
-    delete [] stack->array;
-    delete stack;
-}
 
 
 int main() {
 
-    Stack *stack = createStack(10);
+    Stack *stack = new Stack(10);
     cout<<"Pushing 1~11 \n";
-    push(stack, 1);
-    push(stack, 2);
-    push(stack, 3);
-    push(stack, 4);
-    push(stack, 5);
-    push(stack, 6);
-    push(stack, 7);
-    push(stack, 8);
-    push(stack, 9);
-    push(stack, 10);
-    push(stack, 11);
-    cout<<"top: "<<top(stack)<<endl;
-    print(stack);
+    stack->push(1);
+    stack->push(2);
+    stack->push(3);
+    stack->push(4);
+    stack->push(5);
+    stack->push(6);
+    stack->push(7);
+    stack->push(8);
+    stack->push(9);
+    stack->push(10);
+    stack->push(11);
+    cout<<"top: "<<stack->top()<<endl;
+    stack->print();
 
-    cout<<"Size of remaining stack: "<<size(stack)<<endl;
+    cout<<"size of remaining stack: "<<stack->size()<<endl;
 
     int del = 5;
     cout<<"Popping 5 elements\n";
     while (del--) {
-        cout<<pop(stack)<<" ";
+        cout<<stack->pop()<<" ";
     }
     cout<<endl;
-    print(stack);
-    cout<<"top: "<<top(stack)<<endl;
-    cout<<"Size of remaining stack: "<<size(stack)<<endl;
+    stack->print();
+    cout<<"top: "<<stack->top()<<endl;
+    cout<<"size of remaining stack: "<<stack->size()<<endl;
 
-
-    print(stack);
+   stack->print();
     del = 6;
     cout<<"Popping 6 elements\n";
     while (del--) {
-        cout<<pop(stack)<<" ";
+        cout<<stack->pop()<<" ";
     }
     cout<<endl;
 
-    cout<<"top: "<<top(stack)<<endl;
+    cout<<"top: "<<stack->top()<<endl;
 
-    cout<<"Size of stack: "<<size(stack)<<endl;
-    pop(stack);
-    pop(stack);
-    cout<<"top: "<<top(stack)<<endl;
-    deleteStack(stack);
+    cout<<"size of remaining stack: "<<stack->size()<<endl;
+    stack->pop();
+    stack->pop();
+    cout<<"top: "<<stack->top()<<endl;
+    delete stack;
 
     return 0;
 }
-
