@@ -11,7 +11,7 @@ private:
 	int m_size; // current number of elements in heap
 	bool m_isMinHeap; // true if min heap need to be constructed
 public:
-	Heap(int capacity, bool isMinHeap) : m_capacity(capacity)
+	Heap(int capacity, bool isMinHeap = true) : m_capacity(capacity)
 	, m_size(0)
 	, m_isMinHeap(isMinHeap) {
 		m_arr = new int[m_capacity];
@@ -24,6 +24,11 @@ public:
 		// creating memory 
 		m_arr = new int[n];
 		for (int i = 0; i < n; i++) m_arr[i] = A[i];
+		if (m_isMinHeap) {
+			minHeapify(0);
+		} else {
+			maxHeapify(0);
+		}
 	}
 
 	~Heap() {
@@ -36,6 +41,16 @@ public:
 	int rightChild(int i) { return 2*i + 2; }
 	bool isEmpty() { return m_size == 0; }
 	bool isFull() { return m_size == m_capacity; }
+	int getIndex(int key) {
+		if (isEmpty()) return -1;
+		for (int i = 0; i < m_size; i++)
+			if (m_arr[i] == key) return i;
+		return -1;
+	}
+	void decreaseKey(int i, int new_val);
+	void increaseKey(int i, int new_val);
+	int extractMin();
+	int extractMax();
 
 	// Operations
 	void insertKey(int key);
