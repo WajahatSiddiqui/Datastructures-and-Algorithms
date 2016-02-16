@@ -1,24 +1,39 @@
 #include "Graph.h"
 
 int main() {
-	Graph *graph = new Graph(4, 6);
+	Graph *graphC = new Graph(4, 6);
 
-    graph->addEdge(0, 1);
-    graph->addEdge(1, 2);
-    graph->addEdge(2, 0);
-    graph->addEdge(2, 3);
-    graph->addEdge(3, 3);
-    graph->addEdge(0, 2);
-    graph->printGraph();
+    graphC->addEdge(0, 1);
+    graphC->addEdge(1, 2);
+    graphC->addEdge(2, 0);
+    graphC->addEdge(2, 3);
+    graphC->addEdge(3, 3);
+    graphC->addEdge(0, 2);
+    graphC->printGraph();
 
     // Do DFS Traversal
-    graph->dfs();
+    graphC->dfs();
     // Do BFS Traversal
-    graph->bfs();
-    delete graph;
-    graph = NULL;
+    graphC->bfs();
 
-    graph = new Graph(6, 6);
+    if (graphC->isCyclic()) {
+        cout<<"Graph is cyclic\n";
+    } else {
+        cout<<"Graph is ACyclic\n";
+    }
+
+    Graph *acycle = new Graph(3, 2);
+    acycle->addEdge(0, 1);
+    acycle->addEdge(1, 2);
+    if (acycle->isCyclic()) {
+        cout<<"Graph is cyclic\n";
+    } else {
+        cout<<"Graph is ACyclic\n";
+    }
+
+
+    
+    Graph *graph = new Graph(6, 6);
     graph->addEdge(2, 3);
     graph->addEdge(3, 1);
     graph->addEdge(4, 0);

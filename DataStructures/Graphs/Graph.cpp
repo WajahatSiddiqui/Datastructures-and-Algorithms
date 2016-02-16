@@ -132,3 +132,40 @@ void Graph::topologicalSort() {
     cout<<endl;
     delete [] visited;
 }
+
+bool Graph::isCyclicUtil(int u, bool visited[], bool recStack[]) {
+	if (!visited[u]) {
+		visited[u] = true;
+		recStack[u] = true;
+
+		AdjNode *curr = array[u].head;
+		while (curr) {
+			int v = curr->data;
+			if (!visited[v] && isCyclicUtil(v, visited, recStack))
+				return true;
+			else if (recStack[v])
+				return true;
+		}
+	} else {
+		// if already visited remove the vertex from recursion stack
+		recStack[u] = false;
+		return false;
+	}
+	return false;
+}
+
+
+bool Graph::isCyclic() {
+	bool *visited = new bool[V];
+	bool *recStack = new bool[V];
+	memset(visited, 0, sizeof(*visited));
+	memset(recStack, 0, sizeof(*recStack));
+
+	for(int i = 0; i < V; i++) {
+		if (isCyclicUtil(i, visited, recStack))
+			return true;
+	}
+	delete [] visited;
+	delete [] recStack;
+	return false;
+}

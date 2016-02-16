@@ -34,6 +34,7 @@ private:
 	void dfsUtil(int i, bool visited[]);
 	void bfsUtil(int i, bool visited[]);
 	void topologicalSortUtil(int i, bool visited[], stack<int> &s);
+	bool isCyclicUtil(int i, bool visited[], bool recStack[]);
 
 public:
 	Graph(int _V, int _E, bool _isUndirected = false)
@@ -65,6 +66,7 @@ public:
 	void dfs();
 	void bfs();
 	void topologicalSort();
+	bool isCyclic();
 
 
 	void addEdge(int u, int v);
