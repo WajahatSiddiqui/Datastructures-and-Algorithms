@@ -25,6 +25,51 @@ bool BST::search(TreeNode *root, int value) {
 	return false;
 }
 
+TreeNode* BST::minNode(TreeNode *root) {
+	if (!root) return NULL;
+	TreeNode *curr = root;
+	while (curr->left) {
+		curr = curr->left;
+	}
+	return curr;
+}
+
+/**
+ * There are 3 cases:
+ * 1. Node to be deleted is leaf
+ * 2. Node to be deleted has left/right child
+ * 3. Node to be deleted has both left and right child exists.
+ * Algorithm:
+ * Search for the key where it exists in the tree and find the node to delete
+ * if the node has left child as null replace the node with right and delete
+ * if the node has right child as null, replace the node with left and delete
+ * if both child exists, find the inorder successor (min in rst) and replace 
+ * with the node and delete the node (min->data)
+ */
+TreeNode* BST::deleteNode(TreeNode *root, int value) {
+	if (!root) return root;
+	if (value < root->data) {
+		root->left = deleteNode(root->left, value);
+	} else if (value > root->data) {
+		root->right = deleteNode(root->right, value);
+	} else {
+		if (root->left == NULL) {
+			TreeNode *tmp = root->right;
+			delete root;
+			return tmp;
+		} else if (root->right == NULL) {
+			TreeNode *tmp = root->left;
+			delete root;
+			return tmp;
+		}
+
+		TreeNode *min = minNode(root->right);
+		root->data = min->data;
+		root->right = deleteNode(root->right, min->data);
+	}
+	return root;
+}
+
 void BST::inOrder(TreeNode *root) {
 	if (!root) return;
 	inOrder(root->left);

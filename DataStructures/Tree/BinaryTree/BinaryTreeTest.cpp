@@ -94,6 +94,14 @@ int main() {
     cout<<"The given tree(sumTree) is: "<<binaryTree->isSumTree(sumTree)<<endl;
     cout<<"The given tree(sumTree) is: "<<binaryTree->isSumTreeEfficient(sumTree)<<endl;
     
+    int inorder[] = {1, 5, 3, 4, 2};
+    int preorder[] = {4, 5, 1, 3, 2};
+    int treesize = sizeof(inorder)/sizeof(inorder[0]);
+    TreeNode *newTree = binaryTree->buildTree(inorder, preorder, 0, treesize-1);
+    cout<<"Building Binary Tree with inorder and preorder - Result\n";
+    binaryTree->inOrder(newTree);
+    cout<<endl;
+    binaryTree->preOrder(newTree);
     delete binaryTree;
     return 0;	
 }

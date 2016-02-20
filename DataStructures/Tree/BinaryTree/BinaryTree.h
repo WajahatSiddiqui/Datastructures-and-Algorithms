@@ -44,7 +44,7 @@ public:
 	int leafNodes(TreeNode *root);
 
 	// Operations
-	TreeNode* buildTree(int inOrder[], int preOrder[], int size);
+	TreeNode* buildTree(int inOrder[], int preOrder[], int lo, int hi);
 	TreeNode *mirror(TreeNode *root);
 	TreeNode* LCA(TreeNode* root, int v1, int v2);
 	TreeNode* convertToDoublyLL(TreeNode *root);

@@ -1,5 +1,6 @@
 #include "BinaryTree.h"
 #include <limits.h>
+#include <stdlib.h>
 #include <queue>
 #include <stack>
 
@@ -420,4 +421,22 @@ bool BinaryTree::isSumTreeEfficient(TreeNode *root) {
         return root->data == lst+rst;
     }
     return false;
+}
+
+
+int searchIn(int A[], int lo, int hi, int key) {
+    for (int i = lo; i <= hi; ++i) if (A[i] == key) return i;
+    return -1;
+}
+
+TreeNode* BinaryTree::buildTree(int inOrder[], int preOrder[], int lo, int hi) {
+    static int preIndex = 0;
+    if (lo > hi) return NULL;
+    TreeNode *node = new TreeNode(preOrder[preIndex++]);
+    if (lo == hi) return node;
+    int inIndex = searchIn(inOrder, lo, hi, node->data);    
+    if (inIndex == -1) exit(0);
+    node->left = buildTree(inOrder, preOrder, lo, inIndex-1);
+    node->right = buildTree(inOrder, preOrder, inIndex+1, hi);
+    return node;
 }

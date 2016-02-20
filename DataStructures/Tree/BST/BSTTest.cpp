@@ -24,6 +24,22 @@ int main() {
 		cout<<"Element 4 not present in the BST\n";
 	}
 
+	cout<<"Deleting -1\n";
+	bst->deleteNode(root, -1);
+	bst->inOrder(root);
+	cout<<endl;
+
+	cout<<"Deleting 0\n";
+	bst->deleteNode(root, 0);
+	bst->inOrder(root);
+	cout<<endl;
+
+	cout<<"Deleting 6\n";
+	bst->deleteNode(root, 6);
+	bst->inOrder(root);
+	cout<<endl;
+
+
 	cout<<"Checking if binary tree is bst\n";
 	TreeNode *binaryTree = new TreeNode(4);
 	binaryTree->left = new TreeNode(2);
@@ -50,7 +66,7 @@ int main() {
 
 	cout<<"Building a BST with the {1 2 3 4 5 ... 10}\n";
 	int A[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	TreeNode *tree = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
+	TreeNode *tyiuturee = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
 	cout<<"Printing inorder traversal\n";
 	bst->inOrder(tree);
 	cout<<endl;

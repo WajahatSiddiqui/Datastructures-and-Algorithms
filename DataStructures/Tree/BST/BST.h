@@ -24,7 +24,8 @@ struct Node {
 class BST {
 public:
 	TreeNode* insert(TreeNode* root, int data);
-	TreeNode* deleteNode(TreeNode* root, int datat);
+	TreeNode* deleteNode(TreeNode* root, int data);
+	TreeNode* minNode(TreeNode* root);
 
 
 	// Traversal
@@ -45,9 +46,6 @@ public:
 	TreeNode* mergeWithLimitedSpace(TreeNode *bst1, TreeNode *bst2);
 	TreeNode* mergeBalancedBST(TreeNode *balancedBST1, TreeNode *balancedBST2);
 	int findKSmallest(TreeNode *bst);
-	int inOrderPredessor(TreeNode *root);
-	int inOrderSuccessor(TreeNode *root);
-
 };
 
 #endif // __BST_H__
