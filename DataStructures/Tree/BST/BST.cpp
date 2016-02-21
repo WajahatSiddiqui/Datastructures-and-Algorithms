@@ -210,9 +210,24 @@ int sizeofLL(Node *head) {
 }
 
 /**
- * Builds a BST based on the linked list head position
+ * Builds a BST based on the linked list head position/
  */
 TreeNode* BST::buildBSTLL(Node* head) {
 	int size = sizeofLL(head);
 	return buildBSTLLUtil(head, 0, size-1);
+}
+
+
+TreeNode* BST::LCA(TreeNode *root, int v1, int v2) {
+	if (!root) return NULL;
+
+	// Keys in the LST are less than the root 
+	if (root->data > v1 && root->data > v2)
+		return LCA(root->left, v1, v2);
+
+	// Keys in the RST are greater than the root
+	if (root->data < v1 && root->data < v2)
+		return LCA(root->right, v1, v2);
+
+	return root;
 }

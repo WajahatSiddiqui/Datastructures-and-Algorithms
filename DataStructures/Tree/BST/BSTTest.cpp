@@ -24,6 +24,8 @@ int main() {
 		cout<<"Element 4 not present in the BST\n";
 	}
 
+	cout<<"LCA(5, 4) = "<<bst->LCA(root, 5, 4)->data<<endl;
+
 	cout<<"Deleting -1\n";
 	bst->deleteNode(root, -1);
 	bst->inOrder(root);
@@ -66,7 +68,7 @@ int main() {
 
 	cout<<"Building a BST with the {1 2 3 4 5 ... 10}\n";
 	int A[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	TreeNode *tyiuturee = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
+	TreeNode *tree = bst->buildBST(A, sizeof(A)/sizeof(A[0]));
 	cout<<"Printing inorder traversal\n";
 	bst->inOrder(tree);
 	cout<<endl;
