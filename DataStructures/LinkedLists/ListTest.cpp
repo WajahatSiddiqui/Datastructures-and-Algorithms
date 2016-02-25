@@ -71,10 +71,14 @@ int main() {
     loop = list->append(loop, 2);
     loop = list->append(loop, 3);
     loop = list->append(loop, 4);
-    //loop->next->next->next->next = loop->next->next->next;
+    loop->next->next->next->next = loop->next->next->next;
 
     if (list->detectLoop(loop)) cout<<" loop exists\n";
     else cout<<" loop does not exists\n";
+
+    cout<<"Removing the loops\n";
+    loop = list->detectAndRemoveLoop(loop);
+    list->print(loop);
 
     Node *headA = NULL;
     headA = list->append(headA, 1);

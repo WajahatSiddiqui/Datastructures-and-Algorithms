@@ -214,6 +214,36 @@ bool List::detectLoop(Node *head) {
     return false;
 }
 
+/**
+ * Find the cycle using floyds cycle finding algorithm
+ * once cycle is found, initilize slow pointer to head
+ * and iterate untill slow == fast
+ * They will meet again at the start of the loop
+ * At this point break the cycle by putting the next
+ * pointer to null
+ */
+Node* List::detectAndRemoveLoop(Node *head) {
+    if (!head) return NULL;
+    Node *slow = head, *fast = head;
+    while (slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) break;
+    }
+    // cycle doesn't exists
+    if (slow != fast) return head;
+    // move slow to head and find the node
+    // on which the loop exists
+    slow = head;
+    while (slow != fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    slow->next = NULL;
+    return head;
+}
+
 
 /**
  * Prints the list from head.
