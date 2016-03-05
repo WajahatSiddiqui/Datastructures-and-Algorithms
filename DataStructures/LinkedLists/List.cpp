@@ -356,3 +356,8 @@ void List::printEnd(Node *head) {
     }
     return -1;
  }
+
+
+ Node* List::swap(Node* head, int n1, int n2){
+    
+ }

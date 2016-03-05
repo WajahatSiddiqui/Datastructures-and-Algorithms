@@ -45,6 +45,21 @@ int matches(string &str, char c) {
 	return -1;
 }
 
+/**
+ * To find if a string s2 is rotation of s1
+ * Both the string length has to be same
+ * (i) concat = s2 + s2
+ * (ii) find s1 in concat 
+ * if s1 is found the s2 is rotation of s1
+ * Why this is correct because 
+ * s1 = abcd s2 = 
+ */
+bool isRotated(string &str1, string& str2) {
+	if (str1.length() != str2.length()) return false;
+	string concat = str2 + str2;
+	return concat.find(str1) != string::npos;
+}
+
 int main() {
 	string str = "aabbbbccccdeffff";
 	removeDuplicates(str);
@@ -57,5 +72,11 @@ int main() {
 	cout<<"After copying: "<<copyStr<<endl;
 	cout<<"Matching d in str: "<<matches(str, 'd')<<endl;
 	cout<<"Matching z in str: "<<matches(str, 'z')<<endl;
+	string str1 = "treehouse", str2 = "eehouse";
+	if (isRotated(str1, str2)) {
+		cout<<str2<<" is rotation of "<<str1<<endl;
+	} else {
+		cout<<str2<<" is not rotated of "<<str1<<endl;
+	}
 	return 0;
 }

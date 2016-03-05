@@ -61,7 +61,6 @@ class Graph {
 private:
 	int **m_adj;
 	int V;
-	int E;
 public:
 	Graph(int N) : V(N) {
 		m_adj = new int*[V];
@@ -82,13 +81,11 @@ public:
 		for (int i = 0; i < V; i++) {
 			for (int j = 0; j < V; j++) {
 				cin>>m_adj[i][j];
-				if (m_adj[i][j] == 1) E++;
 			}
 		}
-		E = E / 2;
 	}
 
-	void printAdjacencyMatrix() {
+	void printMatrix() {
 		for (int i = 0; i < V; i++) {
 			for (int j = 0; j < V; j++) {
 				cout<<m_adj[i][j]<<" ";
@@ -97,19 +94,17 @@ public:
 		}
 	}
 
-	void floydWarshall();
+	int floydWarshall();
 
-	int findHumanNetwork(){ return 0; }
 };
 
-void Graph::floydWarshall() {
-	int dist[V][V], i, j, k;
+int Graph::floydWarshall() {
+	int dist[V][V], i, j, k, min = 0, sum = 0;
 	  for (i = 0; i < V; i++) {
         for (j = 0; j < V; j++) {
-        		dist[i][j] = m_adj[i][j];
+        	dist[i][j] = m_adj[i][j];
         }
     }
-
     for (k = 0; k < V; k++) {
         // Pick all vertices as source one by one
         for (i = 0; i < V; i++) {
@@ -118,17 +113,22 @@ void Graph::floydWarshall() {
             for (j = 0; j < V; j++) {
                 // If vertex k is on the shortest path from
                 // i to j, then update the value of dist[i][j]
-                if (dist[i][k] + dist[k][j] < dist[i][j])
+                if (i == j) continue;
+                if (dist[i][j] == 0 || dist[i][k] + dist[k][j] < dist[i][j])
                     dist[i][j] = dist[i][k] + dist[k][j];
             }
         }
     }
-    		for (int i = 0; i < V; i++) {
-			for (int j = 0; j < V; j++) {
-				cout<<dist[i][j]<<" ";
-			}
-			cout<<endl;
-		}
+
+    for (int i = 0; i < V; i++) {
+    	for (int j = 0; j < V; j++) {
+    		sum += dist[i][j];
+    	}
+    	if (i == 0) min = sum;
+    	if (sum < min) min = sum;
+    	sum = 0;
+    }
+    return min;
 }
 
 int main() {
@@ -140,9 +140,8 @@ int main() {
 		cin>>V;
 		graph = new Graph(V);
 		graph->getAdjacencyMatrix();
-		//graph->printAdjacencyMatrix();
-		graph->floydWarshall();
-		cout<<"# "<<T<<" "<<graph->findHumanNetwork()<<endl;
+		//graph->printMatrix();
+		cout<<"# "<<i<<" "<<graph->floydWarshall()<<endl;
 		delete graph;
 	}
 	return 0;	
