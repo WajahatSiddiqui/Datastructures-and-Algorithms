@@ -1,4 +1,5 @@
 // Longest Increasing Subsequence Length
+// https://www.youtube.com/watch?v=CE2b_-XfVDk&index=5&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr
 #include <iostream>
 #include <limits.h>
 using namespace std;
@@ -13,6 +14,10 @@ void print(int T[], int size) {
 	cout<<endl;
 }
 
+/**
+ * Handling duplicate entries as well
+ * T(n) = O(n^2)
+ */
 int findLength(int A[], int size) {
 	print(A, size);
 	int *T = new int[size];
@@ -21,7 +26,7 @@ int findLength(int A[], int size) {
 
 	for(int i = 1; i < size; i++) {
 		for (int j = 0; j < i; j++) {			
-			if (A[j] < A[i]) {				
+			if (A[j] <= A[i]) {				
 				T[i] = max(T[j]+1, T[i]);				
 			}
 		}
@@ -39,7 +44,7 @@ int findLength(int A[], int size) {
 }
 
 int main() {
-	int A[] = {3, 4, -1, 0, 6, 2, 3};
+	int A[] = {3, 4, 0, -1, 2, 6, 3, 3, 4, 5};
 	int size = sizeof(A)/sizeof(A[0]);
-	cout<<findLength(A, size);
+	cout<<findLength(A, size)<<endl;
 }

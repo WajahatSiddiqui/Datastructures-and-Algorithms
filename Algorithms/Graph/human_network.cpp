@@ -52,97 +52,64 @@ Input(a total of T test cases are given line-by-line.)
 …
 */ 
 
+//#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstdio>
-#include <limits.h>
+#define INF 99999
 using namespace std;
 
-class Graph {
-private:
-	int **m_adj;
-	int V;
-public:
-	Graph(int N) : V(N) {
-		m_adj = new int*[V];
-		for (int i = 0; i < V; i++)
-			m_adj[i] = new int[V];
-		for (int i = 0; i < V; i++)
-			for (int j = 0; j < V; j++)
-				m_adj[i][j] = 0;
-	}
+int adj[1001][1001];
 
-	~Graph() {
-		for (int i = 0; i < V; i++)
-			delete [] m_adj[i];
-		delete [] m_adj;
+void printArray(int N) {
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << adj[i][j] << " ";
+		}
+		cout << endl;
 	}
-
-	void getAdjacencyMatrix() {
-		for (int i = 0; i < V; i++) {
-			for (int j = 0; j < V; j++) {
-				cin>>m_adj[i][j];
+}
+int findHumanNetwork(int N) {
+	int min = INF, sum = 0;
+	//printArray(N);
+	for (int k = 0; k < N; k++) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (adj[i][k] + adj[k][j] < adj[i][j])
+					adj[i][j] = adj[i][k] + adj[k][j];
+				if (i != j)	sum += adj[i][j];
 			}
+			if (i == 0) min = sum;
+			if (sum < min) min = sum;
+			sum = 0;
+
 		}
 	}
-
-	void printMatrix() {
-		for (int i = 0; i < V; i++) {
-			for (int j = 0; j < V; j++) {
-				cout<<m_adj[i][j]<<" ";
-			}
-			cout<<endl;
-		}
-	}
-
-	int floydWarshall();
-
-};
-
-int Graph::floydWarshall() {
-	int dist[V][V], i, j, k, min = 0, sum = 0;
-	  for (i = 0; i < V; i++) {
-        for (j = 0; j < V; j++) {
-        	dist[i][j] = m_adj[i][j];
-        }
-    }
-    for (k = 0; k < V; k++) {
-        // Pick all vertices as source one by one
-        for (i = 0; i < V; i++) {
-            // Pick all vertices as destination for the
-            // above picked source
-            for (j = 0; j < V; j++) {
-                // If vertex k is on the shortest path from
-                // i to j, then update the value of dist[i][j]
-                if (i == j) continue;
-                if (dist[i][j] == 0 || dist[i][k] + dist[k][j] < dist[i][j])
-                    dist[i][j] = dist[i][k] + dist[k][j];
-            }
-        }
-    }
-
-    for (int i = 0; i < V; i++) {
-    	for (int j = 0; j < V; j++) {
-    		sum += dist[i][j];
-    	}
-    	if (i == 0) min = sum;
-    	if (sum < min) min = sum;
-    	sum = 0;
-    }
-    return min;
+	//printArray(N);
+	return min;
 }
 
-int main() {
-	int T, V;
+int main(int argc, char** argv)
+{
+	int test_case;
+	int T;
+
 	freopen("human_network.txt", "r", stdin);
-	cin>>T;
-	Graph *graph = NULL;
-	for (int i = 1; i <= T; i++) {
-		cin>>V;
-		graph = new Graph(V);
-		graph->getAdjacencyMatrix();
-		//graph->printMatrix();
-		cout<<"# "<<i<<" "<<graph->floydWarshall()<<endl;
-		delete graph;
+	cin >> T;
+	int N;
+	/*
+	Read each test case from standard input.
+	*/
+	for (test_case = 1; test_case <= T; ++test_case)
+	{
+		cin >> N;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cin >> adj[i][j];
+				if (i != j && adj[i][j] == 0) adj[i][j] = INF;
+			}
+		}
+
+		cout << "#" << test_case <<" "<<findHumanNetwork(N)<< endl;
 	}
-	return 0;	
+	return 0;//Your program should return 0 on normal termination.
 }

@@ -79,13 +79,13 @@ unsigned long getMinCoins(int C[], int M, int N) {
 int main() {
 	//int N = 250, M = 24;
 	//int C[] = {41, 34, 46, 9, 37, 32, 42, 21, 7, 13, 1, 24, 3, 43, 2, 23, 8, 45, 19, 30, 29, 18, 35, 11};
-	int N = 7, M = 4;
-	int C[] = {1, 2, 3, 4};	
-	/*cout<<"The Number of ways to form total = "<<N
+	int N = 100, M = 2;
+	int C[] = {1, 2};	
+	cout<<"The Number of ways to form total = "<<N
 	    <<" are: "<<getNumberOfWays(C, M, N)<<endl;
-*/
-	cout<<"The Min number of coins required to make total = "
-	    <<N<<" are: "<<getMinCoins(C, M, N)<<endl;
+
+	/*cout<<"The Min number of coins required to make total = "
+	    <<N<<" are: "<<getMinCoins(C, M, N)<<endl;*/
 	
 	return 0;
 }
