@@ -8,13 +8,24 @@ int fibonacci(int n) {
 	return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-int fibonacciDP(int n, int fib[]) {
+
+// Memoization using lookup table fib[] (TopDown Approach)
+int fibonacciTDN(int n, int fib[]) {
 	if (n == 0) return 0;
 	if (n == 1) return 1;
 	if (fib[n] != 0) return fib[n];
 	// memoization
-	fib[n] = fibonacciDP(n-1, fib) + fibonacciDP(n-2, fib);
+	fib[n] = fibonacciTDN(n-1, fib) + fibonacciTDN(n-2, fib);
 	return fib[n];
+}
+
+// Tabulation method (BottomUp Approach)
+int fibonacciBUP(int n) {
+	int f[n+1];
+	f[0] = 0; f[1] = 1;
+	for (int i = 2; i <= n; i++)
+		f[i] = f[i-1] + f[i-2];
+	return f[n];
 }
 
 int main() {
@@ -23,9 +34,13 @@ int main() {
 	/*for (int i = 0; i < 40; i++) {
 		cout<<fibonacci(i)<<" ";
 	}*/
+	/*for (int i = 0; i < 40; i++) {
+		cout<<fibonacciTDN(i, fib)<<" ";
+	}*/
 	for (int i = 0; i < 40; i++) {
-		cout<<fibonacciDP(i, fib)<<" ";
+		cout<<fibonacciBUP(i)<<" ";
 	}
+
 	delete [] fib;
 	return 0;
 }
