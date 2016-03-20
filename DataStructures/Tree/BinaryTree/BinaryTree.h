@@ -34,6 +34,7 @@ public:
 	void topView(TreeNode *root);
 	void bottomView(TreeNode *root);
 	void leftView(TreeNode *root);
+	void rightView(TreeNode *root);
 	void boundaryTraversal(TreeNode *root);
 
 	// Dimensions

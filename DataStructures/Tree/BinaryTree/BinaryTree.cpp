@@ -440,3 +440,35 @@ TreeNode* BinaryTree::buildTree(int inOrder[], int preOrder[], int lo, int hi) {
     node->right = buildTree(inOrder, preOrder, inIndex+1, hi);
     return node;
 }
+
+void BinaryTree::leftView(TreeNode *root) {
+    if (!root) return;
+    queue<TreeNode*> q;
+    q.push(root);
+    cout<<root->data<<" ";
+    while (!q.empty()) {
+        TreeNode *front = q.front();
+        q.pop();
+        if (front->left) {
+            cout<<front->left->data<<" ";
+            q.push(front->left);
+        }
+        if (front->right) q.push(front->right);
+    }
+}
+
+void BinaryTree::rightView(TreeNode *root) {
+    if (!root) return;
+    queue<TreeNode*> q;
+    q.push(root);
+    cout<<root->data<<" ";
+    while (!q.empty()) {
+        TreeNode *front = q.front();
+        q.pop();
+        if (front->left) q.push(front->left);
+        if (front->right) {
+            cout<<front->right->data<<" ";
+            q.push(front->right);
+        }
+    }
+}

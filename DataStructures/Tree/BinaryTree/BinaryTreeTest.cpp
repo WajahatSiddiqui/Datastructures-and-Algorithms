@@ -21,18 +21,26 @@ int main() {
 	cout<<"Maximum value in tree is: "<<binaryTree->findMax(tree)<<endl;
 	cout<<"Height of the tree is: "<<binaryTree->height(tree)<<endl;
 	cout<<"Size of tree is: "<<binaryTree->size(tree)<<endl;
-	cout<<"Inorder Traversal\n";
+	cout<<"Inorder Traversal: ";
 	binaryTree->inOrder(tree);
-	cout<<"\nInorderStack Traversal\n";
+	cout<<"\nInorderStack Traversal: ";
 	binaryTree->inOrderStack(tree);
-	cout<<"\nPreorder Traversal \n";
+	cout<<"\nPreorder Traversal: ";
 	binaryTree->preOrder(tree);
-	cout<<"\nPostorder Traversal \n";
+	cout<<"\nPostorder Traversal: ";
 	binaryTree->postOrder(tree);
-	cout<<"\nLevelorder Traversal \n";
+	cout<<"\nLevelorder Traversal: ";
 	binaryTree->levelOrder(tree);
-	cout<<"\nLevelorderQueue Traversal \n";
+	cout<<"\nLevelorderQueue Traversal: ";
 	binaryTree->levelOrderQueue(tree);
+    cout<<"\nPrinting left view: ";
+    binaryTree->leftView(tree);
+    cout<<"\nPrinting right view: ";
+    binaryTree->rightView(tree);
+    cout<<"\nPrinting spiral using 1 queue and 1 stack: ";
+    binaryTree->levelOrderSpiral(tree);
+    cout<<"\nPrinting spiral using 2 stacks: ";
+    binaryTree->levelOrderSpiral2Stack(tree);
 
 	cout<<"\n Searching -1 in tree\n";
 	if (binaryTree->search(tree, -1))
@@ -66,18 +74,6 @@ int main() {
 
     TreeNode *lcaNode = binaryTree->LCA(lcaTree, 1, 6);
     cout<<"LCA(lcaTree, 1, 6) = "<<lcaNode->data<<endl;
-
-    TreeNode *loSpiral = new TreeNode(10);
-    loSpiral->left = new TreeNode(5);
-    loSpiral->right = new TreeNode(14);
-    loSpiral->left->left = new TreeNode(2);
-    loSpiral->left->right = new TreeNode(7);
-    loSpiral->right->left = new TreeNode(11);
-    loSpiral->right->right = new TreeNode(20);
-    cout<<"Printing spiral using 1 queue and 1 stack\n";
-    binaryTree->levelOrderSpiral(loSpiral);
-    cout<<"\nPrinting spiral using 2 stacks\n";
-    binaryTree->levelOrderSpiral2Stack(loSpiral);
 
     cout<<"\nSum of tree: "<<binaryTree->sum(tree)<<endl;
 
