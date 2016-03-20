@@ -359,5 +359,16 @@ void List::printEnd(Node *head) {
 
 
  Node* List::swap(Node* head, int n1, int n2){
-    
+    return NULL;  
+ }
+
+
+ Node* List::findMiddle(Node *head) {
+    if (!head) return NULL;
+    Node *slow = head, *fast = head;
+    while (slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
  }

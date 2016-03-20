@@ -33,6 +33,7 @@ class List {
         Node* detectAndRemoveLoop(Node *head);
         int findMergedNode(Node* headA, Node* headB);
         Node* swap(Node* head, int n1, int n2);
+        Node* findMiddle(Node *head);
 
         // Display
         void print(Node *head);

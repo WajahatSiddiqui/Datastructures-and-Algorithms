@@ -93,8 +93,10 @@ int main() {
     headB->next = headA->next->next->next->next;
     cout<<"headA: "<<headA->next->next->next->next->data;
 
-    cout<<"Merge point in headA, headB = "<<list->findMergedNode(headA, headB)<<endl;
+    cout<<" Merge point in headA, headB = "<<list->findMergedNode(headA, headB)<<endl;
 
-
+    cout<<"Finding Middle element in headA: ";
+    list->print(headA);
+    cout<<list->findMiddle(headA)->data<<endl;
     return 0;
 }
