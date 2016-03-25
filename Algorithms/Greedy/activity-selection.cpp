@@ -37,10 +37,10 @@ void sort(int s[], int f[], int size) {
 void printMaxActivities(int s[], int f[], int size) {
     int i, j;
     i = 0; // first activity is selected by default
-    cout<<i<<" ";
+    cout<<"Job# "<<i<<" -> "<<s[i]<<"-"<<f[i]<<endl;
     for (j = 1; j < size; j++) {
         if (s[j] >= f[i]) {
-            cout<<j<<" ";
+            cout<<"Job# "<<j<<" -> "<<s[j]<<"-"<<f[j]<<endl;
             i = j;
         }
     }
