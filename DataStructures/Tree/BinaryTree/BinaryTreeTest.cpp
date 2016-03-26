@@ -98,6 +98,21 @@ int main() {
     binaryTree->inOrder(newTree);
     cout<<endl;
     binaryTree->preOrder(newTree);
+    TreeNode *root = new TreeNode(1);
+        root->left = new TreeNode(2);
+        root->right = new TreeNode(3);
+        root->left->left = new TreeNode(9);
+        root->left->right = new TreeNode(6);
+        root->right->left = new TreeNode(4);
+        root->right->right = new TreeNode(5);
+        root->right->left->left = new TreeNode(12);
+        root->right->left->right = new TreeNode(7);
+        root->left->right->left = new TreeNode(11);
+        root->left->left->right = new TreeNode(10);
+    cout<<"\nDiagonal View\n";
+    binaryTree->diagonalView(root);
+    cout<<"Computing the diagonal sum: \n";
+    binaryTree->computeDiagonalSum(root);
     delete binaryTree;
     return 0;	
 }

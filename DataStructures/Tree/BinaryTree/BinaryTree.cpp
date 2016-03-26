@@ -1,6 +1,7 @@
 #include "BinaryTree.h"
 #include <limits.h>
 #include <stdlib.h>
+#include <cstring>
 #include <queue>
 #include <stack>
 
@@ -471,4 +472,78 @@ void BinaryTree::rightView(TreeNode *root) {
             q.push(front->right);
         }
     }
+}
+
+void BinaryTree::diagonalView(TreeNode *root) {
+    if (!root) return;
+    int treeSize = findMax(root);
+    int *groups = new int[treeSize+1];
+    for (int i = 0; i < treeSize+1; i++)
+        groups[i] = 0;
+    int count = 0;
+    queue<TreeNode*> q;
+    q.push(root);
+    groups[root->data] = 1;
+    while (!q.empty()) {
+        TreeNode *node = q.front();
+        q.pop();
+        if (node->left && !groups[node->left->data]) {
+            groups[node->left->data] = groups[node->data]+1;
+            q.push(node->left);
+            if (groups[node->left->data] > count)
+                count = groups[node->left->data];
+        }
+        if (node->right && !groups[node->right->data]) {
+            groups[node->right->data] = groups[node->data];
+            q.push(node->right);
+        }
+    }
+    for (int j = 1; j <= count; j++) {
+        cout<<"Diagonal:"<<j<<": ";
+        for (int i = 1; i < treeSize+1; i++) {
+            if (groups[i] == j) {
+                cout<<i<<" ";
+            }
+        }
+        cout<<endl;
+    }
+    delete [] groups;
+}
+
+void BinaryTree::computeDiagonalSum(TreeNode *root) {
+   if (!root) return;
+    int treeSize = findMax(root);
+    int *groups = new int[treeSize+1];
+    for (int i = 0; i < treeSize+1; i++)
+        groups[i] = 0;
+    int count = 0;
+    queue<TreeNode*> q;
+    q.push(root);
+    groups[root->data] = 1;
+    while (!q.empty()) {
+        TreeNode *node = q.front();
+        q.pop();
+        if (node->left && !groups[node->left->data]) {
+            groups[node->left->data] = groups[node->data]+1;
+            q.push(node->left);
+            if (groups[node->left->data] > count)
+                count = groups[node->left->data];
+        }
+        if (node->right && !groups[node->right->data]) {
+            groups[node->right->data] = groups[node->data];
+            q.push(node->right);
+        }
+    }
+    int sum = 0;
+    for (int j = 1; j <= count; j++) {
+        cout<<"Diagonal:"<<j<<": ";
+        for (int i = 1; i < treeSize+1; i++) {
+            if (groups[i] == j) {
+                sum += i;
+            }
+        }
+        cout<<sum<<endl;
+        sum = 0;
+    }
+    delete [] groups;
 }

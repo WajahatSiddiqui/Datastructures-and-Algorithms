@@ -35,7 +35,9 @@ public:
 	void bottomView(TreeNode *root);
 	void leftView(TreeNode *root);
 	void rightView(TreeNode *root);
+	void diagonalView(TreeNode *root);
 	void boundaryTraversal(TreeNode *root);
+
 
 	// Dimensions
 	int height(TreeNode *root);
@@ -50,6 +52,7 @@ public:
 	TreeNode* LCA(TreeNode* root, int v1, int v2);
 	TreeNode* convertToDoublyLL(TreeNode *root);
 	int toSumTree(TreeNode *root);
+	void computeDiagonalSum(TreeNode *root);
 
 	bool isMirror(TreeNode *root1, TreeNode *root2);
 	bool search(TreeNode *root, int data);
