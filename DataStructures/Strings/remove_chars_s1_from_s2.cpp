@@ -3,6 +3,9 @@
 #include <string>
 using namespace std;
 
+/**
+ * T(n) = O(m+n) m - length of s2 n -length of s1
+ */
 void removeChars(string &s1, string &s2) {
 	int map[256] = {0};
 	int s2_len = s2.length();
