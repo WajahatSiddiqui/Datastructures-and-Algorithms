@@ -32,6 +32,11 @@ int length(string& str) {
 	return count-1;
 }
 
+int length_rec(const char *str) {
+	if (str == NULL || *str == '\0') return 0;
+	return 1 + length_rec(str+1);
+}
+
 void copy(string &src, string &destn) {
 	int left = 0, right = src.length();
 	while(left != right) {
@@ -67,6 +72,7 @@ int main() {
 	reverse(str);
 	cout<<"After reversing: "<<str<<endl;
 	cout<<"length of str: "<<length(str)<<endl;
+	cout<<"length of str(recursive): "<<length_rec(str.c_str())<<endl;
 	string copyStr;
 	copy(str, copyStr);
 	cout<<"After copying: "<<copyStr<<endl;
