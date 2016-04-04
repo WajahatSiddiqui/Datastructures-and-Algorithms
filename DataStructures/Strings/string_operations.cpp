@@ -26,6 +26,12 @@ void reverse(string& str) {
 	}
 }
 
+void reverse_rec(const char* str) {
+	if (*str == '\0') return;
+	reverse_rec(str+1);
+	cout<<*str;
+}
+
 int length(string& str) {
 	int count = 0;
 	while (str[count++] != '\0');
@@ -71,7 +77,9 @@ int main() {
 	cout<<"Remove Duplicates: "<<str<<endl;
 	reverse(str);
 	cout<<"After reversing: "<<str<<endl;
-	cout<<"length of str: "<<length(str)<<endl;
+	cout<<"Using recursion\n";
+	reverse_rec(str.c_str());
+	cout<<"\nlength of str: "<<length(str)<<endl;
 	cout<<"length of str(recursive): "<<length_rec(str.c_str())<<endl;
 	string copyStr;
 	copy(str, copyStr);
