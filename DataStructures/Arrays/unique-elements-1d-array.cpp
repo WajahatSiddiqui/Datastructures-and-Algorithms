@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <ctime>
+#include <set>
 using namespace std;
 
 class Timer
@@ -42,6 +43,13 @@ static int getUniqueUsingMap(int A[], int size) {
     return mapObj.size();
 }
 
+static int getUniqueUsingSet(int A[], int size) {
+    set<int> s;
+    for (int i = 0; i < size; i++)
+        s.insert(A[i]);
+    return s.size();
+}
+
 
 int main() {
     Timer t;
@@ -49,10 +57,13 @@ int main() {
     int size = sizeof(A)/sizeof(A[0]);
 
     cout<<"Unique elements: "<<getUnique(A, size)<<endl;
-    cout<<t.elapsed()<<endl;
+    cout<<fixed<<cin.precision(2)<<t.elapsed()<<endl;
     t.reset();
     cout<<"Unique elements: "<<getUniqueUsingMap(A, size)<<endl;
-    cout<<t.elapsed()<<endl;
+    cout<<fixed<<cin.precision(2)<<t.elapsed()<<endl;
+    t.reset();
+    cout<<"Unique elements: "<<getUniqueUsingSet(A, size)<<endl;
+    cout<<fixed<<cin.precision(2)<<t.elapsed()<<endl;
     return 0;
 }
 
