@@ -113,6 +113,12 @@ int main() {
     binaryTree->diagonalView(root);
     cout<<"Computing the diagonal sum: \n";
     binaryTree->computeDiagonalSum(root);
+
+    cout<<"Verticle view: \n";
+    binaryTree->verticleView(root);
+
+    cout<<"Top View: ";
+    binaryTree->topView(root);
     delete binaryTree;
     return 0;	
 }

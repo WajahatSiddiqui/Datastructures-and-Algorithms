@@ -4,7 +4,8 @@
 #include <cstring>
 #include <queue>
 #include <stack>
-
+#include <map>
+#include <set>
 
 TreeNode* BinaryTree::getTree() {
  TreeNode *tree;
@@ -546,4 +547,48 @@ void BinaryTree::computeDiagonalSum(TreeNode *root) {
         sum = 0;
     }
     delete [] groups;
+}
+
+void verticleViewUtil(TreeNode *root, map< int, vector<int> > &mymap, int hd) {
+    if (!root) return;
+    verticleViewUtil(root->left, mymap, hd-1);
+    mymap[hd].push_back(root->data);
+    verticleViewUtil(root->right, mymap, hd+1);
+}
+
+void BinaryTree::verticleView(TreeNode *root) {
+    if (!root) return;
+    map< int, vector<int> > mymap;
+    verticleViewUtil(root, mymap, 0);
+    map< int, vector<int> >::iterator it;
+    for (it = mymap.begin(); it!=mymap.end(); ++it) {
+        for (unsigned int i = 0; i < it->second.size(); i++)
+            cout<<it->second[i]<<" ";
+        cout<<endl;
+    }
+}
+
+struct QNode {
+    TreeNode *node;
+    int hd;
+    QNode(TreeNode *_node, int _hd) : 
+        node(_node), hd(_hd) {}
+};
+
+void BinaryTree::topView(TreeNode *root) {
+    if (!root) return;
+    set<int> s;
+    queue<QNode*> q;
+    q.push(new QNode(root, 0));
+    while (!q.empty()) {
+        QNode *qn = q.front();
+        q.pop();
+        set<int>::iterator it = s.find(qn->hd);
+        if (it == s.end()) {
+            s.insert(qn->hd);
+            cout<<qn->node->data<<" ";
+        }
+        if (qn->node->left) q.push(new QNode(qn->node->left, qn->hd-1));
+        if (qn->node->right) q.push(new QNode(qn->node->right, qn->hd+1));
+    }
 }

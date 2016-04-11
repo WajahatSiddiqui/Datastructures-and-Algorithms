@@ -37,6 +37,7 @@ public:
 	void rightView(TreeNode *root);
 	void diagonalView(TreeNode *root);
 	void boundaryTraversal(TreeNode *root);
+	void verticleView(TreeNode *root);
 
 
 	// Dimensions
