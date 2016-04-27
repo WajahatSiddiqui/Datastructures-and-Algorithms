@@ -35,7 +35,7 @@ int getMaxArea(int A[], int N) {
 }
 
 int main() {
-	int A[] = {2, 1, 2};
+	int A[] = {6, 2, 5, 4, 5, 6, 7};
 	int size = sizeof(A)/sizeof(A[0]);
 	cout<<getMaxArea(A, size)<<endl;
 

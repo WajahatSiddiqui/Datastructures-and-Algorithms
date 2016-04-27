@@ -26,8 +26,8 @@ int findLength(int A[], int size) {
 
 	for(int i = 1; i < size; i++) {
 		for (int j = 0; j < i; j++) {			
-			if (A[j] <= A[i]) {				
-				T[i] = max(T[j]+1, T[i]);				
+			if (A[j] < A[i]) {				
+				T[i] = max(T[j]+1, T[i]);
 			}
 		}
 	}

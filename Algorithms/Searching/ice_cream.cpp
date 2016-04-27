@@ -19,32 +19,7 @@ void findIndices(int C[], int N, int M) {
 	}
 }
 
-void sort(int A[], int size) {
-	int min;
-	for (int i = 0; i < size; i++) {
-		min = i;
-		for (int j = i + 1; j < size; j++) {
-			if (A[j] < A[min]) min = j;
-		}
-		if (A[i] != A[min]) {
-			int tmp = A[i];
-			A[i] = A[min];
-			A[min] = tmp;
-		}
-	}
-}
-
-void print(int A[], int size) {
-	for (int i = 0; i < size; i++) {
-		cout<<A[i]<<" ";
-	}
-	cout<<endl;
-}
-
 int binary_search_iterative(int A[], int iMin, int iMax, int key) {
-	//print(A, iMax);
-	sort(A, iMax);
-	//print(A, iMax);
     // loop from iMin to iMax
     while (iMin <= iMax) {
         int iMid = (iMin + (iMax-iMin)/2);
@@ -65,7 +40,7 @@ int binary_search_iterative(int A[], int iMin, int iMax, int key) {
 
 void findIndicesEfficient(int C[], int N, int M) {
 	int map[MAP_SIZE] = {0};
-	int diff = 0, diffi = 0;
+	int diff = 0;
 	for (int i = 0; i < N; i++) {
 		diff = M - C[i];
 		if (diff >= 0 && map[diff] == 1) {
@@ -88,6 +63,7 @@ int main() {
 		findIndicesEfficient(C, N, M);
 
 		delete [] C;
+		C = NULL;
 	}
 	return 0;
 }
