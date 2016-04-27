@@ -10,55 +10,58 @@
 using namespace std;
 
 struct Node {
-	int x, y;
-	Node *next;
-	Node(int x_, int y_) : x(x_), y(y_) {
-		next = NULL;
-	}
+    int x, y;
+    int d;
+    Node *next;
+
+    Node(int _x, int _y, int _d)
+     : x(_x), y(_y), d(_d) { next = NULL; }
 };
 
-struct Queue {
-	Node *front, *rear;
-	Queue() {
-		front = rear = NULL;
-	}
+class Queue {
+    Node *fr, *rr;
+public:
+    Queue() : fr(NULL), rr(NULL) {}
+    ~Queue() {
+        Node *curr = fr;
+        Node *temp = NULL;
+        while (curr) {
+            temp = curr;
+            curr = curr->next;
+            delete temp;
+            temp = NULL;
+        }
+        if (fr = NULL) rr = NULL;
+    }
+
+    Node* front() { return fr; }
+    Node* rear() { return rr; }
+
+    bool isEmpty() { return fr == NULL && rr == NULL; }
+
+    void enqueue(Node *n);
+    void dequeue();
 };
 
-bool isEmpty(Queue *q) {
-	return q && q->front == NULL;
+void Queue::enqueue(Node *n) {
+    if (isEmpty()) {
+        fr = rr = n;
+    } else {
+        rr->next = n;
+        rr = n;
+    }
 }
 
-void enqeue(Queue *q, int x, int y) {
-	if (!q) return;
-	Node *item = new Node(x, y);
-	if (isEmpty(q)) {
-		q->rear = item;
-		q->front = q->rear;
-	} else {
-		q->rear->next = item;
-		q->rear = item;
-	}
-	cout<<"E: "<<x<<" " <<y<<endl;
+void Queue::dequeue() {
+    if (isEmpty()) return;
+    Node *temp = fr;
+    fr = fr->next;
+    delete temp;
+    temp = NULL;
+    if (fr == NULL)
+        rr = NULL;
 }
 
-void dequeue(Queue *q, int &x, int &y) {
-	if (isEmpty(q)) return;
-	Node *temp = q->front;
-	x = temp->x;
-	y = temp->y;
-	q->front = q->front->next;
-	delete temp;
-	temp = NULL;
-	cout<<"D: "<<x<<" " <<y<<endl;
-}
-
-void printQueue(Queue *q) {
-	if (isEmpty(q)) return;
-	Node *r = NULL;
-	for (r = q->front; r != q->rear; r = r->next)
-		cout<<r->x<<" "<<r->y<<endl;
-	cout<<r->x<<" "<<r->y<<endl;
-}
 
 bool canMove(int N, int M, int x, int y, bool **visited) {
 	return x >= 1 && x <= N && y >= 1 && y <= M && !visited[x][y];
@@ -84,38 +87,34 @@ int findNumberOfMoves(int N, int M, int R, int C, int S, int K) {
 	//printVisited(visited, N, M);
 
 	Queue *q = new Queue();
-	int x = 0, y = 0, count = 0, next_x, next_y;
-	int dx[] = {1, 2, 2, 1, -1, -2, -2, -1};
-	int dy[] = {2, 1, -1, -2, -2, -1, 1, 2};
-
-	bool isMoved = false, isFound = false;
-	enqeue(q, R, C);
+	int x = 0, y = 0, d = 0, count = 0;
+	bool isFound = false;
+	int dx[] = {-2, -2, -1, 1, 2, 2, 1, -1};
+	int dy[] = {-1, 1, 2, 2, 1, -1, -2, -2};
+	q->enqueue(new Node(R, C, 0));
 	visited[R][C] = true;
+	Node *f = NULL;
 
-	while (!isEmpty(q)) {
-		dequeue(q, x, y);
-
-		for (int move = 0; move < 8; move++) {
-			next_x = x + dx[move];
-			next_y = y + dy[move];
-			if (next_x == S && next_y == K) {
-				cout<<"H: "<<next_x<<" "<<next_y<<endl;
-				count++;
-				if (!isFound) isFound = !isFound;
-				break;
-			}
-			if (canMove(N, M, next_x, next_y, visited)) {
-				visited[next_x][next_y] = true;				
-				enqeue(q, next_x, next_y);
-				if (move + 1 == 8) count++;
+	while (!q->isEmpty() && !isFound) {
+		f = q->front();
+		x = f->x;
+		y = f->y;
+		d = f->d;
+		q->dequeue();
+		for (int i = 0; i < 8; i++) {
+			if (canMove(N, M, x + dx[i], y + dy[i], visited)) {
+				if (x + dx[i] == S && y + dy[i] == K) {
+					count = d+1;
+					if (!isFound) isFound = !isFound;
+					break;
+				}
+				visited[x + dx[i]][y + dy[i]] = true;
+				Node *qE = new Node(x + dx[i], y + dy[i], d + 1);
+				q->enqueue(qE);
 			}
 		}
-		if (isFound) break;
-		//printQueue(q);
-		cout<<count<<endl;
 	}
-	printVisited(visited, N, M);
-
+	//printVisited(visited, N, M);
 	for (int i = 0; i <= M; i++)
 		delete[] visited[i];
 	delete[] visited;

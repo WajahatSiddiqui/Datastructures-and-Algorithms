@@ -7,46 +7,61 @@ using namespace std;
 struct Node {
     int data;
     Node *next;
+
+    Node(int d) : data(d) { next = NULL; }
 };
 
-struct Queue {
-    Node *front, *rear;
+class Queue {
+    Node *fr, *rr;
+public:
+    Queue() : fr(NULL), rr(NULL) {}
+    ~Queue() {
+        Node *curr = fr;
+        Node *temp = NULL;
+        while (curr) {
+            temp = curr;
+            curr = curr->next;
+            delete temp;
+            temp = NULL;
+        }
+        if (fr = NULL) rr = NULL;
+    }
+
+    Node* front() { return fr; }
+    Node* rear() { return rr; }
+
+    bool isEmpty() { return fr == NULL && rr == NULL; }
+    int size();
+
+    void enqueue(int d);
+    void dequeue();
+    void print();
 };
 
-Queue* create() {
-    Queue *Q = new Queue();
-    if (!Q) return NULL;
-
-    Q->front = Q->rear = NULL;
-    return Q;
+void Queue::enqueue(int d) {
+    Node *n = new Node(d);
+    if (isEmpty()) {
+        fr = rr = n;
+    } else {
+        rr->next = n;
+        rr = n;
+    }
 }
 
-void enqueue(Queue *Q, int data) {
-    if (!Q) return;
-    Node *newNode = new Node();
-    newNode->data = data;
-    newNode->next = NULL;
-    if (Q->rear) Q->rear->next = newNode;
-    Q->rear = newNode;
-
-    if (Q->front == NULL)
-        Q->front = Q->rear;
-}
-
-int dequeue(Queue *Q) {
-    if (!Q || !Q->front) return 0;
-    int data = Q->front->data;
-    Node *temp = Q->front;
-    Q->front = Q->front->next;
+void Queue::dequeue() {
+    if (isEmpty()) return;
+    Node *temp = fr;
+    fr = fr->next;
     delete temp;
     temp = NULL;
-    return data;
+    if (fr == NULL)
+        rr = NULL;
 }
 
-int size(Queue *Q) {
-    if (!Q) return 0;
+int Queue::size() {
+    if (isEmpty()) return 0;
     int count = 0;
-    Node *curr = Q->front;
+    Node *curr = fr;
     while (curr) {
         count++;
         curr = curr->next;
@@ -54,23 +69,9 @@ int size(Queue *Q) {
     return count;
 }
 
-void deleteQueue(Queue *Q) {
-    if (!Q) return;
-
-    Node *curr = Q->front;
-    Node *temp = NULL;
-    while (curr) {
-        temp = curr;
-        curr = curr->next;
-        delete temp;
-        temp = NULL;
-    }
-    delete Q;
-}
-
-void print(Queue *Q) {
-    if (!Q) return;
-    Node *curr = Q->front;
+void Queue::print() {
+    if (isEmpty()) return;
+    Node *curr = fr;
     while (curr) {
         cout<<curr->data<<" ";
         curr = curr->next;
@@ -81,26 +82,28 @@ void print(Queue *Q) {
 
 int main() {
     cout<<"Implementing Queue using Linked List\n";
-    Queue *Q = create();
+    Queue *q = new Queue();
     cout<<"Inserting few numbers\n";
-    enqueue(Q, 1);
-    enqueue(Q, 2);
-    enqueue(Q, 3);
-    enqueue(Q, 4);
-    print(Q);
-    cout<<"Size of the Queue: "<<size(Q)<<endl;
+    q->enqueue(1);
+    q->enqueue(2);
+    q->enqueue(3);
+    q->enqueue(4);
+    q->print();
+    cout<<"Size of the Queue: "<<q->size()<<endl;
+    cout<<"front = "<<q->front()->data<<endl
+        <<"rear = "<<q->rear()->data<<endl;
     cout<<"Deleting first two\n";
-    cout<<dequeue(Q)<<endl;
-    cout<<dequeue(Q)<<endl;
-    cout<<"Size of the Queue: "<<size(Q)<<endl;
-    print(Q);
+    q->dequeue();
+    q->dequeue();
+    cout<<"Size of the Queue: "<<q->size()<<endl;
+    q->print();
     cout<<"Deleting next two\n";
-    cout<<dequeue(Q)<<endl;
-    cout<<dequeue(Q)<<endl;
-    cout<<"Size of the Queue: "<<size(Q)<<endl;
-    print(Q);
+    q->dequeue();
+    q->dequeue();
+    cout<<"Size of the Queue: "<<q->size()<<endl;
+    q->print();
 
-    deleteQueue(Q);
+    delete q;
     return 0;
 }
 

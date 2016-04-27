@@ -4,61 +4,56 @@ using namespace std;
 struct Node {
     int data;
     Node *next;
+    Node(int d) : data(d) { next = NULL; }
+};
+
+class Stack {
+    Node *t; // top
+public:
+    Stack() : t(NULL) {}
+    ~Stack() {
+        if (isEmpty()) return;
+
+        Node *curr = t;
+        Node *prev = NULL;
+        while (curr) {
+            prev = curr;
+            curr = curr->next;
+            delete prev;
+            prev = NULL;
+        }
+        delete curr;
+    }
+
+    bool isEmpty() { return t == NULL; }
+
+    void push(int data);
+    void pop();
+    Node* top() { return t; }
+    int size();
+    void print();
 };
 
 
-struct Stack {
-    Node *top;
-};
+void Stack::push(int data) {
+    Node *node = new Node(data);
 
-Stack* createStack() {
-    Stack *stack = new Stack();
-    if (!stack) return NULL;
-
-    stack->top = NULL;
-    return stack;
+    node->next = t;
+    t = node;
 }
 
-bool isEmpty(Stack *stack) {
-    return stack->top == NULL;
-}
+void Stack::pop() {
+    if (isEmpty()) return;
 
-void push(Stack *stack, int data) {
-    Node *node = new Node();
-    node->data = data;
-
-    node->next = stack->top;
-    stack->top = node;
-}
-
-int pop(Stack *stack) {
-    if (isEmpty(stack)) return -1;
-
-    Node *temp = stack->top;
-    int data = temp->data;
-    stack->top = temp->next;
+    Node *temp = t;
+    t = t->next;
     delete temp;
     temp = NULL;
-    return data;
 }
 
-void deleteStack(Stack *stack) {
-    if (!stack) return;
-
-    Node *curr = stack->top;
-    Node *prev = NULL;
-    while (curr) {
-        prev = curr;
-        curr = curr->next;
-        delete prev;
-        prev = NULL;
-    }
-    delete curr;
-}
-
-int size(Stack *stack) {
+int Stack::size() {
     int count = 0;
-    Node *curr = stack->top;
+    Node *curr = t;
     while (curr) {
         curr = curr->next;
         count++;
@@ -66,42 +61,38 @@ int size(Stack *stack) {
     return count;
 }
 
-void print(Stack *stack) {
-    if (isEmpty(stack)) return;
+void Stack::print() {
+    if (isEmpty()) return;
 
-    for (Node *curr = stack->top; curr != NULL; curr = curr->next)
+    for (Node *curr = t; curr != NULL; curr = curr->next)
         cout<<curr->data<<" ";
     cout<<endl;
 }
 
-int top(Stack *stack) {
-    return stack->top->data;
-}
-
 int main() {
-    Stack *stack = new Stack();
+    Stack *s = new Stack();
     cout<<"Pushing 1~5\n";
-    push(stack, 1);
-    push(stack, 2);
-    push(stack, 3);
-    push(stack, 4);
-    push(stack, 5);
+    s->push(1);
+    s->push(2);
+    s->push(3);
+    s->push(4);
+    s->push(5);
 
-    cout<<"size: "<<size(stack)<<endl;
+    cout<<"size: "<<s->size()<<endl;
     cout<<"Printing: \n";
-    print(stack);
-
-    cout<<"poping 4 elements\n";
-    int del = 4;
+    s->print();
+    cout<<"top = "<<s->top()->data<<endl;
+    int del = 3;
+    cout<<"poping "<<del<<" elements";
     while (del--) {
-        cout<<pop(stack)<<" ";
+        s->pop();
     }
     cout<<endl;
-    cout<<"Printing: \n";
-    print(stack);
-    cout<<"size: "<<size(stack)<<endl;
+    cout<<"Printing: ";
+    s->print();
+    cout<<"size: "<<s->size()<<endl;
 
-    deleteStack(stack);
+    delete s;
     return 0;
 }
 
