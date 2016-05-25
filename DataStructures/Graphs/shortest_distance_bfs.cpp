@@ -1,46 +1,56 @@
 #include <iostream>
-#include <limits.h>
+#include <cstring>
 #include <queue>
 #include <cstdio>
 #define UNIT_SIZE 6
 using namespace std;
 
-bool hasElement(queue<int> &q, int v) {
-	queue<int> newq = q;
-	while (!newq.empty()) {
-		if (newq.front() == v) return true;
-		newq.pop();
+struct QNode {
+	int u;
+	int d; // distance
+};
+
+void print(int *A, int N) {
+	for (int i = 0; i < N; i++) {
+		cout<<A[i]<<" ";
 	}
-	return false;
+	cout<<endl;
+}
+
+void printAdj(int **adj, int V) {
+	for (int i = 0; i <= V; i++) {
+		for (int j = 0; j <= V; j++) {
+			cout << adj[i][j] << " ";
+		}
+		cout<<endl;
+	}
 }
 
 void printShortestDistances(int **mat, int V, int E, int start) {
 	int *distance = new int[V+1];
 	for (int i = 0; i < V+1; i++)
-		distance[i] = INT_MAX; // initially mark as unreachable
+		distance[i] = -1;
 	distance[start] = 0;
-	queue<int> q;
-	q.push(start);
-
-	int u;
+	//print(distance, V+1);
+	QNode qN = {start, 0};
+	queue<QNode> q;
+	q.push(qN);
+	QNode qE;
 	while (!q.empty()) {
-		u = q.front();
+		qE = q.front();
 		q.pop();
+		//cout<<qE.u<<" "<<qE.d<<endl;
 		for (int v = 1; v <= V; v++) {
-			if (mat[u][v]&& distance[v] > distance[u] + UNIT_SIZE) {
-				distance[v] = distance[u] + UNIT_SIZE;
-				if (!hasElement(q, v))
-					q.push(v);
+			if (mat[qE.u][v] && distance[v] == -1) {
+				distance[v] = qE.d + UNIT_SIZE;
+				QNode qNN = {v, distance[v]};
+				q.push(qNN);
 			}
 		}
 	}
 	for (int i = 1; i <= V; i++) {
 		if (i == start) continue;
-		if (distance[i] == INT_MAX)
-			cout<<"-1"<<" ";
-		else
-			cout<<distance[i]<<" ";
-
+		cout << distance[i] << " ";
 	}
 	delete [] distance;
 }
@@ -61,10 +71,11 @@ int main() {
 			cin>>x>>y;
 			mat[x][y] = mat[y][x] = 1;
 		}
+		//printAdj(mat, V+1);
+		//cout<<endl;
 		cin>>start;
 		printShortestDistances(mat, V, E, start);
 		cout<<endl;
-
 		for(int i = 0; i < V+1; i++)
 			delete [] mat[i];
 		delete [] mat;
