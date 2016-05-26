@@ -46,6 +46,7 @@ public:
 	TreeNode* mergeWithLimitedSpace(TreeNode *bst1, TreeNode *bst2);
 	TreeNode* mergeBalancedBST(TreeNode *balancedBST1, TreeNode *balancedBST2);
 	int findKSmallest(TreeNode *bst);
+	void printRange(TreeNode* root, int k1, int k2);
 };
 
 #endif // __BST_H__

@@ -14,6 +14,10 @@ int main() {
 	cout<<"Printing inorder traversal: ";
 	bst->inOrder(root);
 	cout<<endl;
+
+	cout<<"Printing in the range (0, 7): \n";
+	bst->printRange(root, 0 ,7);
+	cout<<endl;
 	cout<<"Maximum element: "<<bst->findMax(root)<<endl;
 	cout<<"Minimum element: "<<bst->findMin(root)<<endl;
 

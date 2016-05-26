@@ -231,3 +231,12 @@ TreeNode* BST::LCA(TreeNode *root, int v1, int v2) {
 
 	return root;
 }
+
+void BST::printRange(TreeNode *root, int k1, int k2) {
+	if (!root) return;
+	printRange(root->left, k1, k2);
+	if (root->data >= k1 && root->data <= k2) {
+		cout<<root->data<<" ";
+	}
+	printRange(root->right, k1, k2);
+}
