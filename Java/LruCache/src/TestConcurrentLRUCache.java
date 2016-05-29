@@ -11,6 +11,8 @@ public class TestConcurrentLRUCache {
 		cache.put(5, "e");
 		
 		cache.printQueue();
+		cache.printHashMap();
+		cache.destroy();
 
 	}
 

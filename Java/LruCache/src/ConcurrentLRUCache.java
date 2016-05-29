@@ -1,50 +1,56 @@
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ConcurrentLRUCache<Key, Value> {
 
-	private final int maxSize;
-	private ConcurrentHashMap<Key, Value> map;
-	private ConcurrentLinkedQueue<Key> queue;
+         private final int N; // Max. size of cache
+         private ConcurrentHashMap<Key, Value> mHashMap;
+         private ConcurrentLinkedQueue<Key> mQueue;
 
-	public ConcurrentLRUCache(final int maxSize) {
-		this.maxSize = maxSize;
-		map = new ConcurrentHashMap<Key, Value>(maxSize);
-		queue = new ConcurrentLinkedQueue<Key>();
-	}
 
-	/**
-	 * @param key - may not be null!
-	 * @param value - may not be null!
-	 */
-	public void put(final Key key, final Value value) {
-		if (map.containsKey(key)) {
-			queue.remove(key); // remove the key from the FIFO queue
-		}
+        public ConcurrentLRUCache(int size) {
+                N = size;
+                mHashMap = new ConcurrentHashMap<>(N);
+                mQueue = new ConcurrentLinkedQueue<>();
+        }
 
-		while (queue.size() >= maxSize) {
-			Key oldestKey = queue.poll();
-			if (null != oldestKey) {
-				map.remove(oldestKey);
-			}
-		}
-		queue.add(key);
-		map.put(key, value);
-	}
+        public Value get(Key k) {
+               return k != null ? mHashMap.get(k) : null;
+        }
 
-	/**
-	 * @param key - may not be null!
-	 * @return the value associated to the given key or null
-	 */
-	public Value get(final Key key) {
-		return map.get(key);
-	}
-	
-	public void printQueue() {
-		Iterator<Key> iterator = queue.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
-	}
+        public void put(Key k, Value v) {
+               if (mHashMap.containsKey(k)) {
+                      mQueue.remove(k);
+               }
+
+               if (mQueue.size() >= N) {
+                    Key lruKey = mQueue.poll();
+                    if (lruKey != null) mHashMap.remove(lruKey);
+               }
+
+              mHashMap.put(k, v);
+              mQueue.add(k);
+     }
+
+    public void printQueue() {
+             Iterator<Key> iterator  = mQueue.iterator();
+             while (iterator.hasNext()) {
+                    System.out.println(iterator.next());
+             }
+     }
+
+     public void printHashMap() {
+          for (Map.Entry<Key, Value> m : mHashMap.entrySet()) {
+                System.out.println("Key = "+m.getKey()+" "+"Value = "+m.getValue());
+           }
+    }
+
+    public void destroy() {
+           mHashMap.clear();
+           mQueue.clear();
+           mHashMap = null;
+           mQueue = null;
+   }
 }
