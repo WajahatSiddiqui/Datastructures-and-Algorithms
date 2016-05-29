@@ -18,6 +18,14 @@ int main() {
 	cout<<"Printing in the range (0, 7): \n";
 	bst->printRange(root, 0 ,7);
 	cout<<endl;
+	cout<<"Printing Ceil from 0 to 15: ";
+	for (int i = 0; i < 15; i++)
+		cout<<bst->ceil(root, i)<<" ";
+	cout<<endl;
+	cout<<"Printing Floor from 0 to 15: ";
+	for (int i = 0; i < 15; i++)
+		cout<<bst->floor(root, i)<<" ";
+	cout<<endl;
 	cout<<"Maximum element: "<<bst->findMax(root)<<endl;
 	cout<<"Minimum element: "<<bst->findMin(root)<<endl;
 

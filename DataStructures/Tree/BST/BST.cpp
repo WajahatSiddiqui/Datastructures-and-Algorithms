@@ -240,3 +240,21 @@ void BST::printRange(TreeNode *root, int k1, int k2) {
 	}
 	printRange(root->right, k1, k2);
 }
+
+int BST::ceil(TreeNode *root, int val) {
+	if (!root) return -1;
+	if (root->data == val) return root->data;
+	if (val > root->data)
+		return ceil(root->right, val);
+	int res = ceil(root->left, val);
+	return res >= val ? res : root->data;
+}
+
+int BST::floor(TreeNode *root, int val) {
+	if (!root) return -1;
+	if (root->data == val) return root->data;
+	if (val < root->data)
+		return floor(root->left, val);
+	int res = floor(root->right, val);
+	return res < val ? root->data : val;
+}
