@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * T(N) = O(N), N no. of bits in integer
+ */
 int countDecimal(int n) {
     int count = 0;
     while (n) {
@@ -10,6 +13,10 @@ int countDecimal(int n) {
     return count;
 }
 
+
+/**
+ * T(N) = O(N), N no. of bits in integer
+ */
 int countBinary(unsigned int n) {
     int count = 0;
     while (n) {
@@ -19,7 +26,26 @@ int countBinary(unsigned int n) {
     return count;
 }
 
+
+/**
+ * n-1 will reset the bits upto set bit
+ * n = n & n-1 will reset the bit in n
+ * that implies we only need to run the loop
+ * with no. of set bits
+ * T(N) = O(LogN), N no. of bits in integer
+ */
+int countSetBits(unsigned int n) {
+    int count = 0;
+    while (n) {
+        n &= n-1;
+        count++;
+    }
+    return count;
+}
+
 int main() {
+    cout<<"No. of onces in binary 1011: "<<countDecimal(11)<<endl;
     cout<<"No. of onces in binary 1011: "<<countBinary(11)<<endl;
+    cout<<"No. of onces in binary 1011: "<<countSetBits(11)<<endl;
     return 0;
 }
