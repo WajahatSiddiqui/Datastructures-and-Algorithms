@@ -98,5 +98,22 @@ int main() {
     cout<<"Finding Middle element in headA: ";
     list->print(headA);
     cout<<list->findMiddle(headA)->data<<endl;
+
+    cout<<"Pairwise Swapping of even list: ";
+    list->print(headA);
+    headA = list->swappairs(headA);
+    list->print(headA);
+    cout<<endl;
+    Node *headC = NULL;
+    headC = list->append(headC, 1);
+    headC = list->append(headC, 2);
+    headC = list->append(headC, 3);
+    headC = list->append(headC, 4);
+    headC = list->append(headC, 5);
+    cout<<"Pairwise Swapping of odd list: ";
+    list->print(headC);
+    headC = list->swappairs(headC);
+    list->print(headC);
+    cout<<endl;
     return 0;
 }

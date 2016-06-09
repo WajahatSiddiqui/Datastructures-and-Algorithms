@@ -363,6 +363,53 @@ void List::printEnd(Node *head) {
  }
 
 
+/**
+ * Align the prev and curr pointers
+ * manually swap the data elements
+ */
+ #if 0
+Node* List::swappairs(Node *head) {
+    if (!head || !head->next) return head;
+    Node *prev = head;
+    Node *curr = head->next;
+
+    while (prev && curr) {
+        int tmp = prev->data;
+        prev->data = curr->data;
+        curr->data = tmp;
+
+        if (curr) prev = curr->next;
+        if (prev) curr = prev->next;
+    }
+    return head;
+}
+#endif
+
+/**
+ * position the links instead of data elements
+ */
+ #if 1
+Node* List::swappairs(Node *head) {
+    if (!head || !head->next) return NULL;
+    Node *prev = head;
+    Node *curr = head->next;
+    head = curr;
+    Node *next = curr->next;
+    while (prev && curr) {
+        curr->next = prev;
+        if (next && next->next) prev->next = next->next;
+        else prev->next = next;
+        prev = next;
+        if (next) {
+            curr = next->next;
+            if (curr) next = curr->next;
+        }
+    }
+    return head;
+}
+#endif
+
+
  Node* List::findMiddle(Node *head) {
     if (!head) return NULL;
     Node *slow = head, *fast = head;
