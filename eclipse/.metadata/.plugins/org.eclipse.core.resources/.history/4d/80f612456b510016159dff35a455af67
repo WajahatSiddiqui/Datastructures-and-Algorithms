@@ -1,0 +1,20 @@
+import java.util.Arrays;
+
+
+public class StringOps {
+	
+	public static String removeDups(String str) {
+		int len = str.length();
+		char [] c = str.toCharArray();
+		Arrays.sort(c);
+		for (int i = 1; i < len; i++) {
+			if (c[i-1] != c[i])
+				c[i] = c[i-1];
+		}
+		return c.toString();
+	}
+	
+	public static void main(String args[]) {
+		System.out.println(removeDups("baaccd"));
+	}
+}

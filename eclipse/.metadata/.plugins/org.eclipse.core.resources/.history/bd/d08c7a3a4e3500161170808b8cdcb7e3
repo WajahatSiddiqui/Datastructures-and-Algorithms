@@ -1,0 +1,54 @@
+
+/**
+ * Binary Search Tree
+ * @author WajahatSiddiqui (wajahat.siddiqui22@gmail.com)
+ *
+ */
+public class BST {
+
+	private static class TreeNode {
+		int data;
+		TreeNode left, right;
+		public TreeNode (int data) {
+			this.data = data;
+			left = null;
+			right = null;
+		}
+	}
+
+	public static TreeNode search(TreeNode root, int key) {
+		if (root == null) return null;
+		if (key == root.data) return root;
+		else if (key < root.data) return search(root.left, key);
+		else
+			return search(root.right, key);
+	}
+
+	public static void inorder(TreeNode root) {
+		if (root == null) return;
+		inorder(root.left);
+		System.out.print(root.data + " ");
+		inorder(root.right);;
+	}
+
+	public static void main(String args[]) {
+		TreeNode tree = new TreeNode(20);
+		tree.left = new TreeNode(10);
+		tree.right = new TreeNode(30);
+		tree.left.left = new TreeNode(5);
+		tree.left.right = new TreeNode(12);
+		tree.right.left = new TreeNode(15);
+		tree.right.right = new TreeNode(40);
+		System.out.println("Tree: ");
+		inorder(tree);
+		int key = 15;
+		TreeNode search = search(tree, key);
+		System.out.println("Search:");
+		if (search != null) {
+			System.out.println("Found " + key + " search key = " + search.data);
+		} else {
+			System.out.println(key+" not found");
+		}
+	}
+
+}

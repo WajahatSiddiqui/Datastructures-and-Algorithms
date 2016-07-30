@@ -1,0 +1,54 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+
+public class Sample implements Serializable {
+	ArrayList<String> arrayList = new ArrayList<>(2);
+	public Sample() {
+		arrayList.add("Hello");
+		arrayList.add("World");
+	}
+	public static void main(String args[]) {
+		Sample obj = new Sample();
+		ObjectOutputStream oos = null; 
+		try {
+			FileOutputStream fos = new FileOutputStream("abc.txt");
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(obj);
+		} catch (IOException io) {
+			
+		} finally {
+			try {
+				if (oos != null) oos.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		ObjectInputStream ois = null;
+		Sample serializeObj = null;
+		try {
+			FileInputStream fis = new FileInputStream("abc.txt");
+			ois = new ObjectInputStream(fis);
+			Sample serializeObj = (Sample) ois.readObject();
+		} catch (IOException e) {
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ois.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 
+	}
+}

@@ -1,0 +1,21 @@
+
+public class RemoveNode {
+	public class Node {
+		int val;
+		Node next;
+		public Node(int val) {
+			this.val = val;
+			next = null;
+		}
+	}
+	public static Node insert(Node head, Node tail, int item) {
+		if (head == null) {
+			head = new Node(item);
+			tail = head;
+		} else {
+			tail.next = new Node(item);
+			tail = tail.next;
+		}
+		return tail;
+	}
+}

@@ -1,0 +1,315 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
+
+
+/**
+ * Binary Search Tree
+ * @author WajahatSiddiqui (wajahat.siddiqui22@gmail.com)
+ *
+ */
+public class BST {
+
+	private static class TreeNode {
+		int data;
+		TreeNode left, right;
+		public TreeNode (int data) {
+			this.data = data;
+			left = null;
+			right = null;
+		}
+	}
+
+	public static TreeNode insert(TreeNode root, int data) {		
+		if (root == null) return new TreeNode(data);
+		if (data < root.data)
+			root.left = insert(root.left, data);
+		else
+			root.right = insert(root.right, data);
+		return root;
+	}
+
+	public static TreeNode search(TreeNode root, int key) {
+		if (root == null) return null;
+		if (key == root.data) return root;
+		else if (key < root.data)
+			return search(root.left, key);
+		else
+			return search(root.right, key);
+	}
+
+	public static int height(TreeNode root) {
+		if (root == null) return 0;
+		else {
+			int lh = height(root.left);
+			int rh = height(root.right);
+			if (lh > rh)
+				return lh + 1;
+			else
+				return rh + 1;
+		}
+	}
+	
+	public static int width(TreeNode root) {
+		return 0;
+	}
+	
+	public static int diameter(TreeNode root) {
+		return 0;
+	}
+
+	public static boolean isSame(TreeNode tree1, TreeNode tree2) {
+		if (tree1 == null && tree2 == null) return true;
+		if (tree1 == null || tree2 == null) return false;
+		return tree1.data == tree2.data
+				&& isSame(tree1.left, tree2.left)
+				&& isSame(tree1.right, tree2.right);
+	}
+
+	public static boolean isMirror(TreeNode tree1, TreeNode tree2) {
+		return false;
+	}
+
+	public static TreeNode mirror(TreeNode root) {
+		return null;
+	}
+
+	// Traversals
+	public static void inorder(TreeNode root) {
+		if (root == null) return;
+		inorder(root.left);
+		System.out.print(root.data + " ");
+		inorder(root.right);;
+	}
+
+	public static void preorder(TreeNode root) {
+		if (root == null) return;
+		System.out.print(root.data+" ");
+		preorder(root.left);
+		preorder(root.right);		
+	}
+
+	public static void postorder(TreeNode root) {
+		if (root == null) return;
+		postorder(root.left);
+		postorder(root.right);		
+		System.out.print(root.data+" ");
+	}
+	
+	public static void iterativeInorder(TreeNode root) {
+		if (root == null) return;
+		Stack<TreeNode> s = new Stack<>();
+		while (true) {
+			if (root != null) {
+				s.push(root);
+				root = root.left;
+			} else {
+				if (s.isEmpty()) break;
+				root = s.pop();
+				System.out.print(root.data + " ");
+				root = root.right;
+			}
+		}
+	}
+
+	public static void iterativePreorder(TreeNode root) {
+		if (root == null) return;
+		Stack<TreeNode> s = new Stack<>();
+		s.push(root);
+		while (!s.isEmpty()) {
+			root = s.pop();
+			System.out.print(root.data + " ");
+			if (root.right != null) s.push(root.right);
+			if (root.left != null) s.push(root.left);
+		}
+	}
+
+	public static void iterativePostorder(TreeNode root) {
+		if (root == null) return;
+		Stack<TreeNode> s = new Stack<>();
+		TreeNode current = root;
+		while (current != null || !s.isEmpty()) {
+			if (current != null) {
+				s.push(current);
+				current = current.left;
+			} else { // left node is null
+				TreeNode top = s.peek();
+				if (top.right == null) { // leaf node					
+					System.out.print(top.data +" ");
+					s.pop();
+				} else {
+					current = top.right;
+					continue;
+				}
+				if (s.peek().right == top || root == top) {
+					System.out.print(s.pop().data + " ");
+				}
+			}
+		}
+	}
+
+	public static void levelOrder(TreeNode root) {
+		Queue<TreeNode> Q = new ArrayDeque<>();
+		Q.add(root);
+		TreeNode front;
+		while (!Q.isEmpty()) {
+			front = Q.poll();
+			System.out.print(front.data + " ");
+			if (front.left != null) Q.add(front.left);
+			if (front.right != null) Q.add(front.right);
+		}		
+	}
+
+	public static void spiralOrder(TreeNode root) {
+		if (root == null) return;
+		Stack<TreeNode> s1 = new Stack<>();
+		Stack<TreeNode> s2 = new Stack<>();
+		s1.push(root);
+		
+		while (!s1.isEmpty() || !s2.isEmpty()) {
+			
+		}
+	}
+
+	public static void leftView(TreeNode root) {
+
+	}
+
+	public static void rightView(TreeNode root) {
+
+	}
+
+	public static void diagonalView(TreeNode root) {
+
+	}
+
+	public static void topView(TreeNode root) {
+
+	}
+
+	public static void bottomView(TreeNode root) {
+
+	}
+	
+	public static boolean isBST(TreeNode root, int min, int max) {
+		if (root == null) return true;
+		// deviating from the range
+		if (root.data <= min || root.data > max) return false;
+		return isBST(root.left, min, root.data)
+				&& isBST(root.right, root.data, max);
+	}
+
+	public static void buildBST(int [] sortedArray) {
+		
+	}
+	
+	public static void printRange(TreeNode root, int k1, int k2) {
+		
+	}
+	
+	public static int ceil(TreeNode root) {
+		return 0;
+	}
+	
+	public static int floor(TreeNode root) {
+		return 0;
+	}
+	
+	public static TreeNode inorderSuccessor(TreeNode root, int key) {
+		return null;
+	}
+	
+	public static TreeNode inorderPredessor(TreeNode root, int key) {
+		return null;
+	}
+	
+	public static TreeNode LCA(TreeNode root, int v1, int v2) {
+		return null;
+	}
+
+
+	public static int size(TreeNode root) {
+		if (root == null) return 0;
+		int ls = size(root.left);
+		int rs = size(root.right);
+		return 1+ls+rs;
+	}
+
+	public static void main(String args[]) {
+		/*TreeNode root = new TreeNode(20);
+		root.left = new TreeNode(10);
+		root.right = new TreeNode(30);
+		root.left.left = new TreeNode(5);
+		root.left.right = new TreeNode(12);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(40);*/
+		TreeNode root = null;
+		root = insert(root, 20); 
+		root = insert(root, 10);
+		root = insert(root, 30);
+		root = insert(root, 5);
+		root = insert(root, 12);
+		root = insert(root, 25);
+		root = insert(root, 40);
+		System.out.println("Inorder: ");
+		inorder(root);
+		System.out.println("\nIterative Inorder: ");
+		iterativeInorder(root);
+		System.out.println("\nPreorder: ");
+	    preorder(root);
+		System.out.println("\nIterative Preorder: ");
+	    iterativePreorder(root);
+		System.out.println("\nPostorder: ");
+		postorder(root);
+		System.out.println("\nIterative Postorder: ");
+		iterativePostorder(root);
+		System.out.println("\nLevelrder: ");
+		levelOrder(root);
+		int key = 5;
+		TreeNode search = search(root, key);
+		System.out.println("\nSearch:");
+		if (search != null) {
+			System.out.println("Found " + key + " search key = " + search.data);
+		} else {
+			System.out.println(key+" not found");
+		}
+		System.out.println("Size = " + size(root));
+		System.out.println("Height = " + height(root));
+
+		if (isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+			System.out.println("Given Tree is BST");
+		} else {
+			System.out.println("Given Tree is not BST");
+		}
+		
+		TreeNode root1 = new TreeNode(20);
+		root1.left = new TreeNode(10);
+		root1.right = new TreeNode(30);
+		root1.left.left = new TreeNode(5);
+		root1.left.right = new TreeNode(12);
+		root1.right.left = new TreeNode(15);
+		root1.right.right = new TreeNode(40);
+		
+		if (isBST(root1, Integer.MIN_VALUE, Integer.MAX_VALUE)) {
+			System.out.println("Given Tree is BST");
+		} else {
+			System.out.println("Given Tree is not BST");
+		}
+		
+		TreeNode tree1 = new TreeNode(10);
+		tree1.left = new TreeNode(5);
+		tree1.right = new TreeNode(40);
+		
+		TreeNode tree2 = new TreeNode(10);
+		tree2.left = new TreeNode(5);
+		tree2.right = new TreeNode(40);
+		//tree2.right.left = new TreeNode(19);
+
+		if (isSame(tree1, tree2)) {
+			System.out.println("Given Tree are same");
+		} else {
+			System.out.println("Given Tree are not same");
+		}
+	}
+
+}

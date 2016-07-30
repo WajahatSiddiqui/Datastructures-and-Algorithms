@@ -1,0 +1,21 @@
+
+public class RBTree {
+	
+	enum COLOR {
+		RED, BLACK;
+	}
+	
+	private static class TreeNode {
+		int data;
+		TreeNode left, right;
+		COLOR color; //true = red
+		public TreeNode(int data) {
+			this.data = data;
+			left = null;
+			right = null;
+		}
+	}
+	
+	public static void insert
+
+}

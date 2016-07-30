@@ -1,0 +1,11 @@
+
+public class StringOps {
+	
+	public static String removeDups(String str) {
+		
+	}
+	
+	public static void main(String args[]) {
+		System.out.println(removeDups("baaccd"));
+	}
+}

@@ -1,0 +1,63 @@
+
+public class Aggregation {
+	class Address {
+		private String houseno, landmark, city, country, pincode;
+		public Address(String houseno, String landmark, String city, String country, String pincode) {
+			this.houseno = houseno;
+			this.landmark = landmark;
+			this.city = city;
+			this.country = country;
+			this.pincode = pincode;
+		}
+		
+		String getHouseNo() {
+			return this.houseno;
+		}
+		
+		String getLandMark() {
+			return this.landmark;
+		}
+		
+		String getCity() {
+			return this.city;
+		}
+		
+		String getCountry() {
+			return this.country;
+		}
+		
+		String getPincode() {
+			return this.pincode;
+		}
+		
+		public void print() {
+			System.out.println("Address:");
+			System.out.println("HouseNo: "+houseno);
+			System.out.println("Landmark: "+landmark);
+			System.out.println("City: "+city);
+			System.out.println("Country: "+country);
+			System.out.println("Pincode: "+pincode);			
+		}
+	}
+	
+	class Student {
+		private String id;
+		String name, course, sems;
+		Address address;
+		public Student(String id, String name, String course, String sems, Address address) {
+			this.id = id;
+			this.name = name;
+			this.course = course;
+			this.sems = sems;
+			this.address = address;
+		}
+		
+		public void print() {
+			System.out.println("ID: " + id);
+			System.out.println("Name: " + name);
+			System.out.println("Course: " + course);
+			System.out.println("sems: " + sems);
+			address.print();
+		}
+	}
+}

@@ -1,0 +1,12 @@
+import java.util.TreeMap;
+
+
+public class RunLengthEncoding {
+	public static String encode(String str) {
+		TreeMap<Character, Integer> treemap = new TreeMap<>();
+		
+	}
+	public static void main(String args[]) {
+		System.out.println(encode("wwwwccccbbbbaaaeee"));
+	}
+}

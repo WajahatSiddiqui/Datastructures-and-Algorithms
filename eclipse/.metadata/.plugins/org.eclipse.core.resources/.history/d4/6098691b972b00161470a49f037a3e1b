@@ -1,0 +1,20 @@
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+
+public class Sample implements Serializable {
+	ArrayList<String> arrayList = new ArrayList<>(2);
+	public Sample() {
+		arrayList.add("Hello");
+		arrayList.add("World");
+	}
+	public static void main(String args[]) {
+		Sample obj = new Sample();
+		FileOutputStream fos = new FileOutputStream("abc.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(obj);
+		oos.flush();
+	}
+}
