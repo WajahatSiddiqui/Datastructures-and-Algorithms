@@ -71,6 +71,20 @@ bool isRotated(string &str1, string& str2) {
 	return concat.find(str1) != string::npos;
 }
 
+bool isPermutation(string &s1, string& s2) {
+	if (s1.empty() || s2.empty()) return false;
+	int l1 = s1.size();
+	int l2 = s2.size();
+	if (l1 != l2) return false;
+	int letter[256] = {0};
+	for (int i = 0; i < l1; i++)
+		letter[s1[i]]++;
+	for (int i = 0; i < l2; i++) {
+		if (--letter[s2[i]] < 0) return false;
+	}
+	return true;
+}
+
 int main() {
 	string str = "aabbbbccccdeffff";
 	removeDuplicates(str);
@@ -91,6 +105,13 @@ int main() {
 		cout<<str2<<" is rotation of "<<str1<<endl;
 	} else {
 		cout<<str2<<" is not rotated of "<<str1<<endl;
+	}
+	string s1 = "god";
+	string s2 = "dog";
+	if (isPermutation(s1, s2)) {
+		cout << s1 <<" is permutation of " << s2 << endl;
+	} else {
+		cout << s1 <<" is not permutation of " << s2 << endl;
 	}
 	return 0;
 }
