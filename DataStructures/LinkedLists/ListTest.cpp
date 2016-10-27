@@ -115,5 +115,37 @@ int main() {
     headC = list->swappairs(headC);
     list->print(headC);
     cout<<endl;
+
+    // cloning
+    Node *orig = NULL;
+    orig = list->append(orig, 1);
+    orig = list->append(orig, 2);
+    orig = list->append(orig, 3);
+    orig = list->append(orig, 4);
+    orig->arbit = orig->next->next;
+    orig->next->arbit = orig->next->next->next;
+    orig->next->next->arbit = orig->next->next->next->next;
+    orig->next->next->next->arbit = orig->next;
+    cout<<"Before cloning\n";
+    list->printClone(orig);
+
+    Node *clone = list->clone(orig);
+    cout<<"After cloning\n";
+    list->printClone(clone);
+
+    Node *revlist = NULL;
+    revlist = list->append(revlist, 1);
+    revlist = list->append(revlist, 2);
+    revlist = list->append(revlist, 3);
+    revlist = list->append(revlist, 4);
+    revlist = list->append(revlist, 5);
+    revlist = list->append(revlist, 6);
+    revlist = list->append(revlist, 7);
+    revlist = list->append(revlist, 8);
+    cout<<"Printing before reverse: \n";
+    list->print(revlist);
+    cout<<"reversing: \n";
+    revlist = list->reverse(revlist, 3);
+    list->print(revlist);
     return 0;
 }

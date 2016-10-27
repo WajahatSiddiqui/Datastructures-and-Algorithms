@@ -7,6 +7,8 @@ using namespace std;
 struct Node {
     int data;
     Node *next;
+    // for cloning
+    Node *arbit;
 };
 
 
@@ -26,6 +28,7 @@ class List {
         // Operations
         Node* mergeSorted(Node *head1, Node *head2);
         Node* reverse(Node* head);
+        Node* reverse(Node* head, int k); // reverse in groups of size k
         Node* rotate(Node* head, int pos);
         int compare(Node *head1, Node *head2);
         int size(Node *head);
@@ -35,10 +38,12 @@ class List {
         Node* swap(Node* head, int n1, int n2);
         Node* swappairs(Node *head);
         Node* findMiddle(Node *head);
+        Node* clone(Node *head);
 
         // Display
         void print(Node *head);
         void printEnd(Node *head);
+        void printClone(Node *head);
 };
 
 #endif // __LIST_H__

@@ -13,6 +13,7 @@ Node* List::getNode(int data) {
 
     node->data = data;
     node->next = NULL;
+    node->arbit = NULL;
     return node;
 }
 
@@ -115,15 +116,14 @@ Node* List::mergeSorted(Node *list1, Node *list2) {
  */
 Node* List::reverse(Node* head) {
     if (!head) return NULL;
-    Node *curr = head, *prev = NULL, *rev = NULL;
+    Node *curr = head, *prev = NULL, *next = NULL;
     while (curr) {
-        rev = curr->next;
+        next = curr->next;
         curr->next = prev;
         prev = curr;
-        curr = rev;
+        curr = next;
     }
-    head = prev;
-    return head;
+    return prev;
 }
 
 /**
@@ -418,4 +418,74 @@ Node* List::swappairs(Node *head) {
         fast = fast->next->next;
     }
     return slow;
+ }
+
+ void List::printClone(Node *head) {
+    if (!head) return;
+
+    Node *curr = head;
+    int random;
+    int next;
+    cout<<"Data Next Arbit\n";
+    while (curr != NULL) {
+        random = curr->arbit ? curr->arbit->data : -1;
+        next = curr->next ? curr->next->data : -1;
+        cout<<curr->data<<"\t"<<next<<"\t"<<random<<endl;
+        curr = curr->next;
+    }
+ }
+
+ Node* List::clone(Node *head) {
+    if (!head) return NULL;
+    Node *curr = head, *next;
+    Node *node, *clone, *copy;
+    while (curr != NULL) {
+        node = getNode(curr->data);
+        next = curr->next;
+        curr->next = node;
+        node->next = next;
+        curr = curr->next->next;
+    }
+    curr = head;
+    clone = curr->next;
+    while (curr != NULL) {
+        if (curr->arbit)
+            curr->next->arbit = curr->arbit->next;
+        else
+            curr->next->arbit = NULL;    
+        curr = curr->next->next;
+    }
+    curr = head;
+    copy = clone;
+    while (curr != NULL && curr->next != NULL && copy != NULL && copy->next != NULL) {
+        if (copy->next) copy->next = copy->next->next;
+        if (curr->next) curr->next = curr->next->next;
+        curr = curr->next;
+        copy = copy->next;
+    }
+    return clone;
+ }
+
+ /**
+  * Reverse Singly Linked List in groups of size k
+  * I/P: 1->2->3->4->5->6->7->8->NULL
+  * O/P: 3->2->1->6->5->4->8->7->NULL
+  */
+ Node* List::reverse(Node* head, int k) {
+    if (head == NULL) return NULL;
+    Node *prev = NULL, *curr = head, *next = NULL;
+    int count = 0;
+
+    while (curr != NULL && count < k) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        count++;
+    }
+    //print(prev);
+
+    if (next != NULL)
+        head->next = reverse(next, k);
+    return prev;
  }
