@@ -41,6 +41,13 @@ int getIslands(int M[][V]) {
 
 		}
 	}
+
+	// cleanup visited array
+	for (int i = 0; i < V; i++) {
+		delete visited[i];
+	}
+	delete [] visited;
+
 	return islands;
 }
 
